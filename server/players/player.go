@@ -11,10 +11,10 @@ import (
 type Player struct {
 	sync.RWMutex
 
-	ID       string
-	Name     string `xml:"name"`
-	Chans    map[string]chan *event.Event
-	LastSeen time.Time
+	ID       string                       `xml:"id"`
+	Name     string                       `xml:"name"`
+	Chans    map[string]chan *event.Event `xml:"-"`
+	LastSeen time.Time                    `xml:"last-seen"`
 }
 
 func NewPlayer(name string) *Player {

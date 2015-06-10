@@ -34,6 +34,7 @@ func main() {
 	router.HandleFunc("/api/{session}/lobbies/new/{name}/{max}", panicHandler(lobbyNewHandler))
 	router.Handle("/", http.FileServer(http.Dir("static")))
 
+	log.Println("Server ready. Running on port 8088.")
 	log.Fatal(http.ListenAndServe(":8088", router))
 }
 
@@ -47,7 +48,6 @@ func loginHandler(rw http.ResponseWriter, req *http.Request) {
 	x := xml.NewEncoder(rw)
 	x.Encode(event.NewEvent("session_id", "system", players.NewPlayer(userName)))
 	x.Flush()
-	log.Println("Request done")
 }
 
 func lobbyHandler(rw http.ResponseWriter, req *http.Request) {
@@ -66,7 +66,6 @@ func lobbyHandler(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	x.Flush()
-	log.Println("Request done")
 }
 
 func lobbyNewHandler(rw http.ResponseWriter, req *http.Request) {
