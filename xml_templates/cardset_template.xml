@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cardset>
+	
+	<definition> 
+		<name></name>
+		<card_count></card_count>
+		
+		<values>
+			<value>
+				<tag></tag>
+				<type></type>
+				<name><name>
+			</value>
+		</values>
+	
+	</definition>
+	
+	<cards>
+		<card>
+			<titel></title>
+			<card_pic></card_pic>
+		</card>
+	</cards>
+
+</cardset>
