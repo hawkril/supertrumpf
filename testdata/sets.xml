@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sets>
+<set name="numbers">
+	<title><Zahlen/title>
+	<card_count>6</card_count>
+	<max_players>1</max_players>
+</set>
+</sets>

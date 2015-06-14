@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cardset>
+	
+	<definition> 
+		<name>Numbers</name>
+		<card_count></card_count>
+		<no_values></no_values>
+		<values>
+			<value>
+				<tag>teiler</tag>
+				<type>small</type>
+				<name>Teiler<name>
+				<suffix></suffix>
+			</value>
+			<value>
+				<tag>quer</tag>
+				<type>big</type>
+				<name>Quersumme<name>
+				<suffix></suffix>
+			</value>
+			<value>
+				<tag>quer_bin</tag>
+				<type>big</type>
+				<name>Quersumme Binärdarstellung<name>
+				<suffix></suffix>
+			</value>
+		</values>
+	
+	</definition>
+	
+	<cards>
+		<card>
+			<no>1</no>
+			<titel>1</title>
+			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number1.jpg</card_pic>
+			<teiler>1</teiler>
+			<quer>1</quer>
+			<quer_bin>1</quer_bin>
+		</card>
+		<card>
+			<no>2</no>
+			<titel>2</title>
+			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number2.jpg</card_pic>
+			<teiler>2</teiler>
+			<quer>2</quer>
+			<quer_bin>1</quer_bin>
+		</card>
+		<card>
+			<no>3</no>
+			<titel>3</title>
+			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number3.jpg</card_pic>
+			<teiler>2</teiler>
+			<quer>3</quer>
+			<quer_bin>2</quer_bin>
+		</card>
+		<card>
+			<no>4</no>
+			<titel>4</title>
+			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number4.jpg</card_pic>
+			<teiler>3</teiler>
+			<quer>3</quer>
+			<quer_bin>1</quer_bin>
+		</card>
+		<card>
+			<no>5</no>
+			<titel>5</title>
+			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number5.jpg</card_pic>
+			<teiler>2</teiler>
+			<quer>5</quer>
+			<quer_bin>2</quer_bin>
+		</card>
+		<card>
+			<no>6</no>
+			<titel>6</title>
+			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number6.jpg</card_pic>
+			<teiler>3</teiler>
+			<quer>6</quer>
+			<quer_bin>2</quer_bin>
+		</card>
+
+	</cards>
+
+</cardset>
