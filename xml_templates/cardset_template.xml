@@ -4,12 +4,13 @@
 	<definition> 
 		<name></name>
 		<card_count></card_count>
-		
+		<no_values></no_values>
 		<values>
 			<value>
 				<tag></tag>
 				<type></type>
 				<name><name>
+				<suffix></suffix>
 			</value>
 		</values>
 	
