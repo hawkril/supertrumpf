@@ -18,8 +18,10 @@
 	
 	<cards>
 		<card>
+			<no></no>
 			<titel></title>
 			<card_pic></card_pic>
+			//<value1></value1>
 		</card>
 	</cards>
 
