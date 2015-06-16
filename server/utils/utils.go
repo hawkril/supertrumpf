@@ -20,11 +20,11 @@ func init() {
 func GenerateID(n int) string {
 	buf := make([]byte, n)
 	for n--; n >= 0; n-- {
-		buf[n] = chars[rand.Intn(len(chars))]
+		buf[n] = chars[rnd.Intn(len(chars))]
 	}
 	return string(buf)
 }
 
 func RandomInt(min, max int) int {
-	return rand.Intn(max-min+1) + min
+	return rnd.Intn(max-min+1) + min
 }
