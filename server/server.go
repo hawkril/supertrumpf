@@ -5,12 +5,13 @@ import (
 	"html"
 	"log"
 	"net/http"
-	"strconv"
+	"os"
 	"strings"
+	"time"
 
-	"github.com/gorilla/mux"
+	"github.com/go-martini/martini"
+	"github.com/martini-contrib/render"
 
-	"trumpf-core/event"
 	"trumpf-core/lobby"
 	"trumpf-core/players"
 	_ "trumpf-core/trumpf"
@@ -22,99 +23,94 @@ type errorPayload struct {
 }
 
 const (
-	INTERNAL_ERROR_XML = "<Event><type>error</type><source>system</source><payload><message>An internal server error occurred.</message></payload></Event>"
+	INTERNAL_ERROR_XML = "<wvent><type>error</type><source>system</source><payload><message>An internal server error occurred.</message></payload></event>"
 )
 
 func main() {
-	log.Println("Setting up routes.")
-	router := mux.NewRouter()
-
-	router.HandleFunc("/api/login/{user}", panicHandler(loginHandler))
-	router.HandleFunc("/api/{session}/lobbies", panicHandler(lobbyHandler))
-	router.HandleFunc("/api/{session}/lobbies/new/{name}/{max}", panicHandler(lobbyNewHandler))
-	router.Handle("/", http.FileServer(http.Dir("static")))
-
-	log.Println("Server ready. Running on port 8088.")
-	log.Fatal(http.ListenAndServe(":8088", router))
-}
-
-func loginHandler(rw http.ResponseWriter, req *http.Request) {
-	logRequest(req)
-
-	userName := mux.Vars(req)["user"]
-	userName = strings.TrimSpace(userName)
-	userName = html.EscapeString(userName)
-
-	x := xml.NewEncoder(rw)
-	x.Encode(event.NewEvent("session_id", "system", players.NewPlayer(userName)))
-	x.Flush()
-}
-
-func lobbyHandler(rw http.ResponseWriter, req *http.Request) {
-	logRequest(req)
-
-	session := mux.Vars(req)["session"]
-	player := players.GetPlayer(session)
-	x := xml.NewEncoder(rw)
-	if player == nil {
-		// User is not logged in (the session is invalid)
-		if err := x.Encode(newErrorEvent("The session is invalid. Please log in first.", "/")); err != nil {
-			log.Println(err)
-		}
+	port := ":80"
+	if len(os.Args) < 2 {
+		log.Println("No port specified, assuming 80")
 	} else {
-		x.Encode(event.NewEvent("lobby_list", "system", lobby.GetLobbies()))
+		port = os.Args[1]
 	}
 
-	x.Flush()
+	m := martini.Classic()
+	m.Use(render.Renderer(render.Options{PrefixXML: []byte(xml.Header)}))
+
+	// Login handler
+	m.Get("/api/login/:user", func(p martini.Params, r render.Render) {
+		userName := p["user"]
+		userName = strings.TrimSpace(userName)
+		userName = html.EscapeString(userName)
+
+		player := players.NewPlayer(userName)
+		player.RLock()
+		r.XML(http.StatusOK, newEnvelope(player.ID, "ok", player))
+		player.Seen()
+		player.RUnlock()
+	})
+
+	// Lobbies handler
+	m.Get("/api/:session/lobbies", func(p martini.Params, r render.Render) {
+		session := p["session"]
+
+		player := players.GetPlayer(session)
+		if player == nil {
+			r.XML(http.StatusMethodNotAllowed, newEnvelope("", "login_required", nil))
+			return
+		}
+
+		r.XML(http.StatusOK, newEnvelope(session, "ok", lobby.GetLobbies()))
+	})
+
+	// Create new lobby
+	m.Get("/api/:session/lobbies/new/:name", func(p martini.Params, r render.Render) {
+		session := p["session"]
+		name := p["name"]
+
+		player := players.GetPlayer(session)
+		if player == nil {
+			r.XML(http.StatusMethodNotAllowed, newEnvelope("", "login_required", nil))
+			return
+		}
+
+		name = strings.TrimSpace(name)
+		if name == "" {
+			r.XML(http.StatusMethodNotAllowed, newEnvelope("", "name_empty", nil))
+			return
+		}
+
+		name = html.EscapeString(name)
+
+		r.XML(http.StatusOK, newEnvelope(session, "ok", lobby.NewLobby(player, name, 10)))
+	})
+
+	m.RunOnAddr(port)
 }
 
-func lobbyNewHandler(rw http.ResponseWriter, req *http.Request) {
-	logRequest(req)
+type envelope struct {
+	XMLName xml.Name `xml:"s:Envelope"`
+	NS      string   `xml:"xmlns:s,attr"`
+	Header  struct {
+		Session string    `xml:"session"`
+		Time    time.Time `xml:"time"`
+		Type    string    `xml:"type"`
+	} `xml:"s:Header"`
+	Body interface{} `xml:"s:Body"`
+}
 
-	vars := mux.Vars(req)
-	session := vars["session"]
-	player := players.GetPlayer(session)
-
-	x := xml.NewEncoder(rw)
-	if player == nil {
-		// User is not logged in (the session is invalid)
-		if err := x.Encode(newErrorEvent("The session is invalid. Please log in first.", "/")); err != nil {
-			log.Println(err)
-		}
-		x.Flush()
-		return
+func newEnvelope(session, typ string, body interface{}) *envelope {
+	return &envelope{
+		NS: "http://www.w3.org/2003/05/soap-envelope",
+		Header: struct {
+			Session string    `xml:"session"`
+			Time    time.Time `xml:"time"`
+			Type    string    `xml:"type"`
+		}{
+			Session: session,
+			Time:    time.Now(),
+			Type:    typ,
+		},
+		Body: body,
 	}
-
-	name := vars["name"]
-	max := vars["max"]
-	maxInt64, err := strconv.ParseInt(max, 10, 32)
-	if err != nil {
-		if err := x.Encode(newErrorEvent("The max player number is not an integer.", "")); err != nil {
-			log.Println(err)
-		}
-		x.Flush()
-		return
-	}
-
-	x.Encode(event.NewEvent("lobby_created", "system", lobby.NewLobby(player, name, int(maxInt64))))
-	x.Flush()
-}
-
-func newErrorEvent(message, redirect string) *event.Event {
-	return event.NewEvent("error", "system", errorPayload{message, redirect})
-}
-
-func logRequest(req *http.Request) {
-	log.Printf("- %s %s %s\n", req.Method, req.RemoteAddr, req.URL)
-}
-
-type panicHandler http.HandlerFunc
-
-func (this panicHandler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
-	defer func() {
-		if recover() != nil {
-			rw.Write([]byte(INTERNAL_ERROR_XML))
-		}
-	}()
-	this(rw, req)
 }
