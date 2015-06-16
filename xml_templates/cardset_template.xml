@@ -2,8 +2,6 @@
 <cardset>
 	
 	<definition> 
-		<name></name>
-		<card_count></card_count>
 		<no_values></no_values>
 		<values>
 			<value>
@@ -22,9 +20,9 @@
 			<titel></title>
 			<card_pic></card_pic>
 			<!--
-			<value1></value1>
-			<value2></value2>
-			<value3></value3>
+			<value id="1"></value>
+			<value id="2"></value>
+			<value id="3"></value>
 			-->
 		</card>
 	</cards>

@@ -2,9 +2,7 @@
 <cardset>
 	
 	<definition> 
-		<name>Numbers</name>
-		<card_count></card_count>
-		<no_values></no_values>
+		<no_values>3</no_values>
 		<values>
 			<value>
 				<tag>teiler</tag>
@@ -33,129 +31,129 @@
 			<no>1</no>
 			<titel>1</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number1.jpg</card_pic>
-			<teiler>1</teiler>
-			<quer>1</quer>
-			<quer_bin>1</quer_bin>
+			<value id="teiler">1</value>
+			<value id="quer">1</value>
+			<value id="quer_bin">1</value>
 		</card>
 		<card>
 			<no>2</no>
 			<titel>2</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number2.jpg</card_pic>
-			<teiler>2</teiler>
-			<quer>2</quer>
-			<quer_bin>1</quer_bin>
+			<value id="teiler">2</value>
+			<value id="quer">2</value>
+			<value id="quer_bin">1</value>
 		</card>
 		<card>
 			<no>3</no>
 			<titel>3</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number3.jpg</card_pic>
-			<teiler>2</teiler>
-			<quer>3</quer>
-			<quer_bin>2</quer_bin>
+			<value id="teiler">2</value>
+			<value id="quer">3</value>
+			<value id="quer_bin">2</value>
 		</card>
 		<card>
 			<no>4</no>
 			<titel>4</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number4.jpg</card_pic>
-			<teiler>3</teiler>
-			<quer>3</quer>
-			<quer_bin>1</quer_bin>
+			<value id="teiler">3</value>
+			<value id="quer">3</value>
+			<value id="quer_bin">1</value>
 		</card>
 		<card>
 			<no>5</no>
 			<titel>5</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number5.jpg</card_pic>
-			<teiler>2</teiler>
-			<quer>5</quer>
-			<quer_bin>2</quer_bin>
+			<value id="teiler">2</value>
+			<value id="quer">5</value>
+			<value id="quer_bin">2</value>
 		</card>
 		<card>
 			<no>6</no>
 			<titel>6</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number6.jpg</card_pic>
-			<teiler>3</teiler>
-			<quer>6</quer>
-			<quer_bin>2</quer_bin>
+			<value id="teiler">3</value>
+			<value id="quer">6</value>
+			<value id="quer_bin">2</value>
 		</card>
 		<card>
 			<no>7</no>
 			<titel>7</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number7.jpg</card_pic>
-			<teiler>2</teiler>
-			<quer>7</quer>
-			<quer_bin>3</quer_bin>
+			<value id="teiler">2</value>
+			<value id="quer">7</value>
+			<value id="quer_bin">3</value>
 		</card>
 		<card>
 			<no>8</no>
 			<titel>8</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number8.jpg</card_pic>
-			<teiler>4</teiler>
-			<quer>8</quer>
-			<quer_bin>1</quer_bin>
+			<value id="teiler">4</value>
+			<value id="quer">8</value>
+			<value id="quer_bin">1</value>
 		</card>
 		<card>
 			<no>9</no>
 			<titel>9</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number9.jpg</card_pic>
-			<teiler>3</teiler>
-			<quer>9</quer>
-			<quer_bin>2</quer_bin>
+			<value id="teiler">3</value>
+			<value id="quer">9</value>
+			<value id="quer_bin">2</value>
 		</card>
 		<card>
 			<no>10</no>
 			<titel>10</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number10.jpg</card_pic>
-			<teiler>4</teiler>
-			<quer>1</quer>
-			<quer_bin>2</quer_bin>
+			<value id="teiler">4</value>
+			<value id="quer">1</value>
+			<value id="quer_bin">2</value>
 		</card>
 		<card>
 			<no>11</no>
 			<titel>1</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number11.jpg</card_pic>
-			<teiler>2</teiler>
-			<quer>2</quer>
-			<quer_bin>3</quer_bin>
+			<value id="teiler">2</value>
+			<value id="quer">2</value>
+			<value id="quer_bin">3</value>
 		</card>
 		<card>
 			<no>12</no>
 			<titel>7</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number12.jpg</card_pic>
-			<teiler>6</teiler>
-			<quer>3</quer>
-			<quer_bin>2</quer_bin>
+			<value id="teiler">6</value>
+			<value id="quer">3</value>
+			<value id="quer_bin">2</value>
 		</card>
 		<card>
 			<no>13</no>
 			<titel>13</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number13.jpg</card_pic>
-			<teiler>2</teiler>
-			<quer>4</quer>
-			<quer_bin>3</quer_bin>
+			<value id="teiler">2</value>
+			<value id="quer">4</value>
+			<value id="quer_bin">3</value>
 		</card>
 		<card>
 			<no>14</no>
 			<titel>14</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number14.jpg</card_pic>
-			<teiler>4</teiler>
-			<quer>5</quer>
-			<quer_bin>3</quer_bin>
+			<value id="teiler">4</value>
+			<value id="quer">5</value>
+			<value id="quer_bin">3</value>
 		</card>
 		<card>
 			<no>15</no>
 			<titel>15</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number15.jpg</card_pic>
-			<teiler>4</teiler>
-			<quer>6</quer>
-			<quer_bin>4</quer_bin>
+			<value id="teiler">4</value>
+			<value id="quer">6</value>
+			<value id="quer_bin">4</value>
 		</card>
 		<card>
 			<no>16</no>
 			<titel>16</titel>
 			<card_pic>https://userpage.fu-berlin.de/tspickhofen/xmlpics/number16.jpg</card_pic>
-			<teiler>5</teiler>
-			<quer>7</quer>
-			<quer_bin>1</quer_bin>
+			<value id="teiler">5</value>
+			<value id="quer">7</value>
+			<value id="quer_bin">1</value>
 		</card>
 	</cards>
 
