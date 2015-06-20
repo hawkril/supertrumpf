@@ -91,7 +91,7 @@ function newgame() {
         return;
     
     $.get(apiurl + sessionid + "/lobbies/new/" + encodeURIComponent(name), function(data, status, xhr) {
-        lobbyid = $(data).find("id").val();
+        lobbyid = $(data).find("id").text();
         currentstate = "lobby";
         document.cookie = "lobby=" + lobbyid;
         document.cookie = "state=" + currentstate;
@@ -106,7 +106,7 @@ function join(e) {
         return;
     
     $.get(apiurl + sessionid + "/" + lobbyid + "/join", function(data, status, xhr) {
-        lobbyid = $(data).find("id").val();
+        lobbyid = $(data).find("id").text();
         currentstate = "lobby";
         document.cookie = "lobby=" + lobbyid;
         document.cookie = "state=" + currentstate;
