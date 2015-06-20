@@ -1,6 +1,6 @@
 // config vars
-//var apiurl = "http://46.4.83.144:8888/api/";
-var apiurl = "test-api/";
+var apiurl = "http://46.4.83.144:8888/api/";
+//var apiurl = "test-api/";
 
 var currentstate = 'login';
 var username = null;
@@ -28,14 +28,20 @@ $(document).ready(function() {
     
     switch (currentstate) {
         case "lobbies":
-            showlobbies();
+            if (sessionid) {
+                showlobbies();
+                return;
+            }
             break;
         case "wait":
-            break;
-        default:
-            $("#content").fadeIn();
+            if (sessionid && lobbyid) {
+                
+                return;
+            }
             break;
     }
+    
+    $("#content").fadeIn();
     
 });
 
