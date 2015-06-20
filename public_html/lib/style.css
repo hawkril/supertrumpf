@@ -123,6 +123,14 @@ h1 {
     float: right;
 }
 
+#leftbox {
+    float: left;
+}
+
+#rightbox {
+    float: right;
+}
+
 .lobby {
     width: 98%;
     margin: 10px auto;
