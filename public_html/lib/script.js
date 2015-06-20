@@ -1,6 +1,6 @@
 // config vars
-var apiurl = "http://46.4.83.144:8888/api/";
-//var apiurl = "test-api/";
+//var apiurl = "http://46.4.83.144:8888/api/";
+var apiurl = "test-api/";
 
 var currentstate = 'login';
 var username = null;
@@ -47,9 +47,11 @@ $(document).ready(function() {
 
 $(document).on("click", "#login", function() { login(); });
 
-$(document).on("click", "#newgame", function(e) { newgame() });
+$(document).on("click", "#newgame", function(e) { newgame(); });
 
-$(document).on("click", ".lobby", function(e) { join(e)})
+$(document).on("click", ".lobby", function(e) { join(e); });
+
+$(document).on("click", "#changename", function() { changename(); });
 
 function login() {
     var name = $("#username").val();
@@ -103,7 +105,7 @@ function join(e) {
     if (!lobby)
         return;
     
-    $.get(apiurl + sessionid + "/" + lobby + "/join", function(data, status, xhr) {
+    $.get(apiurl + sessionid + "/" + lobbyid + "/join", function(data, status, xhr) {
         lobbyid = $(data).find("id");
         currentstate = "lobby";
         document.cookie = "lobby=" + lobbyid;
@@ -112,6 +114,37 @@ function join(e) {
         $("#content").xslt(xhr.responseText, cache.lobby);
     });
 }
+
+function changename() {
+    var newname = $("#gamename").val();
+    if (!newname)
+        return;
+    
+    $.get(apiurl + sessionid + "/" + lobbyid + "/change_name/" + newname, function(data, status, xhr) {
+        //todo
+    });
+}
+
+function changenum() {
+    var num = $("#maxplayers").val();
+    if (!num)
+        return;
+    
+    $.get(apiurl + sessionid + "/" + lobbyid + "/change_num/" + num, function(data, status, xhr) {
+        //todo
+    });
+}
+
+function changeset(e) {
+    var set = $(e).attr("name");
+    if (!set)
+        return;
+    
+    $.get(apiurl + sessionid + "/" + lobbyid + "/change_set/" + set, function(data, status, xhr) {
+        //todo
+    });
+}
+
 
 function showlobby() {
     
