@@ -11,18 +11,20 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:s="http://www.w3.org/2003/05/soap-envelope" version="1.0">
     
     <xsl:template match="/">
-        <div id="mainbox">
-            Wähle ein Spiel aus...
-            <div id="lobbies">
+        <div id="mainbox" class="lobbies">
+            <div id="header">Wähle ein Spiel aus...</div>
+            <div id="main">
                 <xsl:apply-templates />
             </div>
-            <div id="lobbiesfooter">
-                <button type="button" class="btn btn-success" id="newgame">Neues Spiel</button>
+            <div id="footer">
+                <label for="gamename">Neues Spiel:</label> 
+                <input type="text" class="form-control" id="gamename" placeholder="Name deines Spiels" />
+                <button type="button" class="btn btn-success" id="newgame">Spiel erstellen</button>
             </div>
         </div>
     </xsl:template>
     
-    <xsl:template match="//s:Body">
+    <xsl:template match="body">
         <xsl:variable name="lobbyid"><xsl:value-of select="id"/></xsl:variable>
         
         <div class="lobby" id="{$lobbyid}">

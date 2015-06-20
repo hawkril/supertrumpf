@@ -8,15 +8,26 @@ body {
     background-origin: content-box;
     background-position: top;
     text-align: center;
+    height: 100%;
 }
 
 h1 {
     display: none;
 }
 
+#content input, #content button {
+    font-size: 25px;
+    height: 45px;
+    margin: 10px 0 0 0;
+}
+
 #content {
     display: none;
     height: 100%;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2% 0;
 }
 
 #wait {
@@ -35,52 +46,85 @@ h1 {
 #loginbox {
     width: 500px;
     height: 300px;
-    /*background-color: rgba(230,230,230,0.95);*/
-    background: -webkit-linear-gradient(#FFFFFF , #DDDDDD); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#FFFFFF , #DDDDDD); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#FFFFFF , #DDDDDD); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#FFFFFF, #DDDDDD);
     border-radius: 8px;
     border: 1px solid rgb(133,133,133);
-    margin: 280px auto;
+    margin-top: calc(50% - 150px);
+    margin-left: auto;
+    margin-right: auto;
     text-align: left;
     padding: 70px 20px;
     font-size: 25px;
     color: gray;
+    box-shadow: 0 0 20px rgba(81, 203, 238, 1);
 }
 
-#loginbox > input, #loginfooter > button, #lobbiesfooter > button {
-    font-size: 25px;
-    height: 45px;
-    margin: 10px 0 0 0;
+#loginbox > button, 
+#footer > button {
+    float: right;
 }
 
-#loginfooter, #lobbiesfooter {
-    text-align: right;
+#footer > label,
+#footer > input {
+    float: left;
+    margin: 10px 0 0 10px;
+}
+
+#footer > label {
+    margin-top: 15px;
+}
+
+#gamename {
+    min-width: 260px;
+    width: calc(100% - 172px);
 }
 
 #mainbox {
-    width: 800px;
-    margin: 5% auto;
-    background: -webkit-linear-gradient(rgba(255,255,255,0.95), rgba(221,221,221,0.95)); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(rgba(255,255,255,0.95), rgba(221,221,221,0.95)); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(rgba(255,255,255,0.95), rgba(221,221,221,0.95)); /* For Firefox 3.6 to 15 */
+    min-height: 430px;
+    height: 100%;
     background: linear-gradient(rgba(255,255,255,0.95), rgba(221,221,221,0.95));
     border: 1px solid rgb(133,133,133);
     border-radius: 8px;
     font-size: 25px;
     color: gray;
     padding: 20px 10px 10px 10px;
+    box-shadow: 0 0 20px rgba(81, 203, 238, 1);
 }
 
-#lobbies {
+#mainbox:after {
+    content: ".";
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0px;
+}
+
+
+#footer:after {
+    content: ".";
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0px;
+}
+
+#main {
     margin: 20px 0;
     overflow: auto;
-    height: 500px;
+    border: 1px solid rgb(220,220,220);
+    height: calc(100% - 185px);
+}
+
+#leavegame {
+    float: left;
+}
+
+#startgame {
+    float: right;
 }
 
 .lobby {
-    width: 760px;
+    width: 98%;
     margin: 10px auto;
     height: 50px;
     text-align: left;
@@ -88,6 +132,7 @@ h1 {
     border-radius: 8px;
     background: linear-gradient(rgb(255,255,255), rgb(240,240,240));
     cursor: pointer;
+    overflow: hidden;
 }
 
 .lobby:hover {
@@ -111,5 +156,3 @@ h1 {
 .lobby .set {
     width: 200px;
 }
-
-
