@@ -1,6 +1,6 @@
 // config vars
-//var apiurl = "http://46.4.83.144:8888/api/";
-var apiurl = "test-api/";
+var apiurl = "http://46.4.83.144:8888/api/";
+//var apiurl = "test-api/";
 
 var currentstate = 'login';
 var username = null;
