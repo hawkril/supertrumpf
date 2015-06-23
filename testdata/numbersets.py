@@ -3,7 +3,14 @@
 
 import xml.etree.cElementTree as ET
 import xml.dom.minidom as minidom
+import sys
 
+setname = sys.argv[1] 
+filename = setname + '.xml'
+settitel = sys.argv[2] 
+card_no = int(sys.argv[3]) 
+
+#helper functions 
 def factors(n):
     result = 0
 
@@ -24,7 +31,11 @@ def sum_bin(n):
 	bin = int("{0:b}".format(n))
 	return sum_digits(bin)
 
-root = ET.Element("cardset")
+#create document root
+
+root = ET.Element('cardset')
+
+#create definition section
 definition = ET.SubElement(root, "definition")
 ET.SubElement(definition, "no_values").text = "3"
 values = ET.SubElement(definition, "values")
@@ -43,9 +54,11 @@ ET.SubElement(value3, "tag").text = "quer_bin"
 ET.SubElement(value3, "type").text = "big"
 ET.SubElement(value3, "name").text = "Quersumme Binaerdarstellung"
 ET.SubElement(value3, "suffix").text = ""
+
+#create cards
 cards = ET.SubElement(root, "cards")
 
-for x in range(1, 40):
+for x in range(1, card_no+1):
 	y = str(x)
 	wcard = ET.SubElement(cards, "card")
 	ET.SubElement(wcard, "no").text = y
@@ -60,8 +73,38 @@ for x in range(1, 40):
 
 
 xmlstr = minidom.parseString(ET.tostring(root)).toprettyxml(indent="   ")
-with open("New_Database.xml", "w") as f:
+with open(filename, "w") as f:
 	f.write(xmlstr.encode('utf-8'))
 
+setdoc = ET.parse('sets.xml')
+sets = setdoc.getroot()
+set = ET.SubElement(sets,"set", name = setname)
+ET.SubElement(set,"title").text = settitel
+ET.SubElement(set,"card_count").text = str(card_no)
+ET.SubElement(set,"max_players").text = str(card_no // 8)
 
+setdoc.write('sets.xml',encoding="utf-8", xml_declaration=True)
+
+
+
+#helper functions 
+def factors(n):
+    result = 0
+
+    for i in range(1, n + 1):
+        if n % i == 0:
+            result += 1
+
+    return result
+
+def sum_digits(n):
+    sum = 0
+    while n:
+        sum += n % 10
+        n /= 10
+    return sum
+
+def sum_bin(n):
+	bin = int("{0:b}".format(n))
+	return sum_digits(bin)
 
