@@ -240,7 +240,7 @@ func main() {
 
 		lobby.Join(player)
 		lobby.Unlock()
-		r.XML(http.StatusOK, events.New("lobby_joined", "system", lobbyID))
+		r.XML(http.StatusOK, events.New("lobby_joined", "system", lobby))
 	})
 
 	// Leave lobby
