@@ -17,13 +17,13 @@ func Connect(host, user, password string) (err error) {
 }
 
 func Query(query string) ([]string, error) {
-	result := make([]string, 0, 10)
+	result := make([]string, 0)
 	var buf string
 	var err error
 
 	m.Lock()
 
-	q := client.Query(query + "\r\n")
+	q := client.Query(query)
 	buf, err = q.Execute()
 	if err != nil {
 		m.Unlock()
