@@ -336,5 +336,11 @@ func main() {
 		lobby.Unlock()
 	})
 
+	// Get set
+	m.Get("/api/set/:set", func(p martini.Params, r render.Render) {
+		set := trumpf.QuerySet(p["set"])
+		r.XML(http.StatusOK, events.New("card_set", "database", set))
+	})
+
 	m.RunOnAddr(port)
 }
