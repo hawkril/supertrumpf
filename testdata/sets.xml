@@ -1,5 +1,5 @@
-	<?xml version='1.0'?>
-	<sets>
+<?xml version='1.0'?>
+<sets>
 	<set name="numbers">
 		<title>Zahlen</title>
 		<card_count>16</card_count>
