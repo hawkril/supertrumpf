@@ -23,7 +23,7 @@ func Query(query string) ([]string, error) {
 
 	m.Lock()
 
-	q := client.Query(query)
+	q := client.Query(query + "\r\n")
 	buf, err = q.Execute()
 	if err != nil {
 		m.Unlock()
