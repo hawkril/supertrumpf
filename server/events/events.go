@@ -8,10 +8,10 @@ type Event struct {
 	XMLName xml.Name    `xml:"event"`
 	Type    string      `xml:"type"`
 	Source  string      `xml:"source"`
-	Payload interface{} `xml:"payload,omitempty"`
+	Payload interface{} `xml:"payload"`
 }
 
-func NewEvent(typ, source string, payload interface{}) *Event {
+func New(typ, source string, payload interface{}) *Event {
 	return &Event{
 		Type:    typ,
 		Source:  source,

@@ -4,7 +4,7 @@ import (
 	"trumpf-core/players"
 )
 
-type player struct {
+type Player struct {
 	Player *players.Player
-	Deck   []*card
+	Deck   []*Card
 }

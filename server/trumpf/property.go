@@ -1,13 +1,13 @@
 package trumpf
 
-type propertyDef struct {
+type PropertyDef struct {
 	ID             int
 	Name           string
 	Unit           string
 	IsBiggerBetter bool
 }
 
-type property struct {
-	Definition *propertyDef
+type Property struct {
+	Definition *PropertyDef
 	Value      float32
 }

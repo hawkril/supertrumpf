@@ -1,7 +1,7 @@
 package trumpf
 
-type card struct {
+type Card struct {
 	ID         string
 	Title      string
-	Properties []*property
+	Properties []*Property
 }

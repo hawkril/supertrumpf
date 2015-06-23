@@ -2,6 +2,7 @@ package lobbies
 
 import (
 	"container/list"
+	"encoding/xml"
 	"html"
 	"sort"
 	"strings"
@@ -21,6 +22,7 @@ var (
 type Lobby struct {
 	sync.RWMutex
 
+	XMLName    xml.Name        `xml:"lobby"`
 	ID         string          `xml:"id"`
 	Name       string          `xml:"name"`
 	NumPlayers int             `xml:"numPlayers"`
@@ -48,10 +50,10 @@ func (this *Lobby) SetNumPlayers(player *players.Player, number int) bool {
 		return false
 	}
 	this.NumPlayers = number
-	this.SendEvent(events.NewEvent("lobby_num_players_changed", this.Owner.ID, this.NumPlayers))
+	this.SendEvent(events.New("lobby_num_players_changed", this.Owner.ID, this.NumPlayers))
 
 	if this.Players.Len() > this.NumPlayers {
-		this.SendEvent(events.NewEvent("overfull", this.Owner.ID, this.NumPlayers))
+		this.SendEvent(events.New("overfull", this.Owner.ID, this.NumPlayers))
 	}
 
 	return true
@@ -66,7 +68,7 @@ func (this *Lobby) SetName(player *players.Player, name string) bool {
 		return false
 	}
 	this.Name = html.EscapeString(name)
-	this.SendEvent(events.NewEvent("lobby_name_changed", this.Owner.ID, this.Name))
+	this.SendEvent(events.New("lobby_name_changed", this.Owner.ID, this.Name))
 	return true
 }
 
@@ -76,7 +78,7 @@ func (this *Lobby) SetSet(player *players.Player, set string) bool {
 	}
 	// ToDo: Check if a set with this id exists
 	this.Set = set
-	this.SendEvent(events.NewEvent("lobby_set_changed", this.Owner.ID, this.Set))
+	this.SendEvent(events.New("lobby_set_changed", this.Owner.ID, this.Set))
 	return true
 }
 
@@ -112,14 +114,14 @@ func (this *Lobby) HasPlayer(player *players.Player) *list.Element {
 func (this *Lobby) Join(player *players.Player) {
 	if this.HasPlayer(player) == nil && this.Players.Len() < this.NumPlayers {
 		this.Players.PushBack(player)
-		this.SendEvent(events.NewEvent("player_joined", player.ID, nil))
+		this.SendEvent(events.New("player_joined", player.ID, nil))
 	}
 }
 
 func (this *Lobby) Leave(player *players.Player) {
 	if p := this.HasPlayer(player); p != nil {
 		this.Players.Remove(p)
-		this.SendEvent(events.NewEvent("player_left", player.ID, nil))
+		this.SendEvent(events.New("player_left", player.ID, nil))
 	}
 }
 

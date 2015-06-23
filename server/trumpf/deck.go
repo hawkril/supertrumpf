@@ -1,3 +1,3 @@
 package trumpf
 
-type deck []*card
+type Deck []*Card
