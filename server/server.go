@@ -97,6 +97,27 @@ func main() {
 		r.XML(http.StatusOK, events.New("lobby_created", "system", lobbies.NewLobby(player, name, LOBBY_INITIAL_PLAYERS)))
 	})
 
+	m.Get("/api/:session/lobby/:lobby", func(p martini.Params, r render.Render) {
+		sessionID := p["session"]
+		lobbyID := p["lobby"]
+
+		player := players.GetPlayer(sessionID)
+		if player == nil {
+			r.XML(http.StatusUnauthorized, events.New("login_required", "system", "You need to login before accessing the API."))
+			return
+		}
+
+		lobby := lobbies.GetLobby(lobbyID)
+		if lobby == nil {
+			r.XML(http.StatusNotFound, events.New("lobby_not_found", "system", "The requested lobby does not exist on the server."))
+			return
+		}
+
+		lobby.RLock()
+		r.XML(http.StatusOK, lobby)
+		lobby.RUnlock()
+	})
+
 	// Change lobby name
 	m.Get("/api/:session/lobby/:lobby/change_name/:name", func(p martini.Params, r render.Render) {
 		sessionID := p["session"]

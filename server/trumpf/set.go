@@ -15,9 +15,9 @@ type Set struct {
 
 func QuerySet(id string) (*Set, error) {
 	// ToDo: Write an adequate escape
-	id = strings.Replace(id, `"`, "", -1)
+	id = strings.Replace(id, `"`, ``, -1)
 
-	rows, err := database.Query(`xquery for $x in doc('testdata1/sets.xml')/sets/set where $x/@name='` + id + `' return data($x/card_count)`)
+	rows, err := database.Query(`xquery for $x in doc("testdata1/sets.xml")/sets/set where $x/@name="` + id + `" return data($x/card_count)`)
 	if err != nil {
 		return nil, err
 	}
