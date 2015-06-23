@@ -338,8 +338,12 @@ func main() {
 
 	// Get set
 	m.Get("/api/set/:set", func(p martini.Params, r render.Render) {
-		set := trumpf.QuerySet(p["set"])
-		r.XML(http.StatusOK, events.New("card_set", "database", set))
+		set, err := trumpf.QuerySet(p["set"])
+		if err != nil {
+			r.XML(http.StatusNotFound, events.New("card_set_not_found", "system", err.Error()))
+		} else {
+			r.XML(http.StatusOK, events.New("card_set", "database", set))
+		}
 	})
 
 	m.RunOnAddr(port)
