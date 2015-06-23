@@ -83,7 +83,7 @@ ET.SubElement(set,"title").text = settitel
 ET.SubElement(set,"card_count").text = str(card_no)
 ET.SubElement(set,"max_players").text = str(card_no // 8)
 
-setdoc.write('sets.xml',encoding="utf-8", xml_declaration=True)
+setdoc.write('sets.xml', xml_declaration=True)
 
 
 
