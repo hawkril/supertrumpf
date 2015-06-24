@@ -22,13 +22,14 @@ var (
 type Lobby struct {
 	sync.RWMutex
 
-	XMLName    xml.Name        `xml:"lobby"`
-	ID         string          `xml:"id"`
-	Name       string          `xml:"name"`
-	NumPlayers int             `xml:"numPlayers"`
-	Owner      *players.Player `xml:"owner,omitempty"`
-	Set        string          `xml:"set"`
-	Players    *list.List      `xml:"-"`
+	XMLName      xml.Name        `xml:"lobby"`
+	ID           string          `xml:"id"`
+	Name         string          `xml:"name"`
+	NumPlayers   int             `xml:"numPlayers"`
+	Owner        *players.Player `xml:"owner,omitempty"`
+	Set          string          `xml:"set"`
+	Players      *list.List      `xml:"-"`
+	playersSlice []string        `xml:"players>player"`
 }
 
 func NewLobby(owner *players.Player, name string, numPlayers int) *Lobby {
@@ -116,6 +117,7 @@ func (this *Lobby) Join(player *players.Player) {
 		this.Players.PushBack(player)
 		this.SendEvent(events.New("player_joined", player.ID, nil))
 	}
+	this.generatePlayerSlice()
 }
 
 func (this *Lobby) Leave(player *players.Player) {
@@ -123,6 +125,18 @@ func (this *Lobby) Leave(player *players.Player) {
 		this.Players.Remove(p)
 		this.SendEvent(events.New("player_left", player.ID, nil))
 	}
+	this.generatePlayerSlice()
+}
+
+func (this *Lobby) generatePlayerSlice() {
+	ps := make([]string, 0, this.Players.Len())
+	for item := this.Players.Front(); item != nil; item = item.Next() {
+		player := item.Value.(*players.Player)
+		player.RLock()
+		ps = append(ps, player.Name)
+		player.RUnlock()
+	}
+	this.playersSlice = ps
 }
 
 func AddLobby(lobby *Lobby) bool {
