@@ -9,37 +9,40 @@
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+    <xsl:param name="session" />
+    
     <xsl:template match="/">
-        <xsl:variable name="numPlayers"><xsl:value-of select="//body/numPlayers"/></xsl:variable>
-        <xsl:variable name="lobbyname"><xsl:value-of select="//body/name"/></xsl:variable>
+        <xsl:variable name="numPlayers"><xsl:value-of select="//lobby/numPlayers"/></xsl:variable>
+        <xsl:variable name="lobbyname"><xsl:value-of select="//lobby/name"/></xsl:variable>
         
-        <div id="mainbox" class="lobby">
-            <div id="header"><xsl:value-of select="//body/name" />: warte auf weitere Spieler...</div>
-            <div id="main">
-                <div id="leftbox">
-                    <xsl:if test="//session = //owner/id">
-                        <div>Spielname: <input type="text" class="form-control" id="gamename" placeholder="{$lobbyname}" /><button type="button" class="btn btn-default" id="changename">Ändern</button></div>
+        <div id="lobby" class="contentregion">
+            <div id="mainbox">
+                <div id="header">Warte auf weitere Spieler...</div>
+                <div id="main">
+                    <xsl:if test="$session = //lobby/owner/id">
+                    <div><label>Spielname:</label><input type="text" class="form-control" id="gamename" placeholder="{$lobbyname}" /><button type="button" class="btn btn-default" id="changename">Ändern</button></div>
                     </xsl:if>
-                    <div>Maximale Spieler: <xsl:value-of select="//numPlayers" /> 
-                        <xsl:if test="//session = //owner/id">
-                            <input id="maxplayers" data-slider-id='maxplayersSlider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="{$numPlayers}"/>
-                            <button type="button" class="btn btn-default" id="changenum">Ändern</button>
+                    <div>
+                        <label>Maximale Spieler: </label> 
+                        <span id="lblnumplayers">
+                            <xsl:value-of select="//lobby/numPlayers" />
+                        </span>
+                        <xsl:if test="$session = //lobby/owner/id">
+                            <input type="range" min="0" max="10" value="{$numPlayers}" step="1" id="numplayers" />
                         </xsl:if>
                     </div>
-                    <div>Erstellt von: <xsl:value-of select="//owner/name" /></div>
-                    <div>Kartenset:</div>
-                </div>
-                <div id="rightbox">
+                    <div><label>Erstellt von: </label><xsl:value-of select="//lobby/owner/name" /></div>
+                    <div><label>Kartenset:</label></div>
                     <div id="players">
                         <xsl:apply-templates />
                     </div>
                 </div>
-            </div>
-            <div id="footer">
-                <button type="button" class="btn btn-warning" id="leavegame">Spiel verlassen</button>
-                <xsl:if test="//session = //owner/id">
-                    <button type="button" class="btn btn-success" id="startgame">Spiel starten</button>
-                </xsl:if>
+                <div id="footer">
+                    <button type="button" class="btn btn-warning" id="leavegame">Spiel verlassen</button>
+                    <xsl:if test="$session = //lobby/owner/id">
+                        <button type="button" class="btn btn-success" id="startgame">Spiel starten</button>
+                    </xsl:if>
+                </div>
             </div>
         </div>
     </xsl:template>

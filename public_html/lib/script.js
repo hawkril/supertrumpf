@@ -26,6 +26,7 @@ $(document).ready(function() {
     lobbyid = getCookie("lobby");
     currentstate = getCookie("state");
     
+    // return to state in cookie
     switch (currentstate) {
         case "lobbies":
             if (sessionid) {
@@ -33,21 +34,43 @@ $(document).ready(function() {
                 return;
             }
             break;
-        case "wait":
+        case "lobby":
             if (sessionid && lobbyid) {
-                
+                showlobby();
                 return;
             }
             break;
     }
     
+    currentstate = "login";
     $("#content").fadeIn();
     
 });
 
+// only for permanent ui update
+$(document).on("mousemove", "#numplayers", function() {
+    var num = $("#numplayers").val();
+    $("#lblnumplayers").html(num);
+});
+
 $(document).on("click", "#login", function() { login(); });
 
-$(document).on("click", "#newgame", function(e) { newgame(); });
+$(document).keydown(function(event) {
+    if (event.key === "Enter") {
+        switch (currentstate) {
+            case "login":
+                login();
+                break;
+            case "lobbies":
+                newgame();
+                break;
+        }
+    }
+});
+
+$(document).on("click", "#newgame", function() { newgame(); });
+
+$(document).on("click", "#leavegame", function() { leavegame(); });
 
 $(document).on("click", ".lobby", function(e) { join(e); });
 
@@ -91,25 +114,50 @@ function newgame() {
         return;
     
     $.get(apiurl + sessionid + "/lobbies/new/" + encodeURIComponent(name), function(data, status, xhr) {
-        lobbyid = $(data).find("id").text();
+        lobbyid = $(data).find("lobby > id").text();
         currentstate = "lobby";
-        document.cookie = "lobby=" + lobbyid;
-        document.cookie = "state=" + currentstate;
+        updateCookie();
         
-        $("#content").xslt(xhr.responseText, cache.lobby);
+        $("#content").xslt(xhr.responseText, cache.lobby, { "session" : sessionid });
     });
 }
 
+function leavegame() {
+    
+    $.get(apiurl + sessionid + "/lobby/" + lobbyid + "/leave", function(data, status, xhr) {
+        // fire and forget for the moment...
+        // maybe do a toast...
+    });
+
+    lobbyid = null;
+    currentstate = "lobbies";
+    updateCookie();
+    
+    showlobbies();
+}
+
 function join(e) {
-    var lobby = $(e).attr("id");
-    if (!lobby)
+    if (!e)
         return;
     
-    $.get(apiurl + sessionid + "/" + lobbyid + "/join", function(data, status, xhr) {
-        lobbyid = $(data).find("id").text();
+    var id = $(e.currentTarget).attr("id");
+    if (!id)
+        return;
+    load();
+    $.get(apiurl + sessionid + "/lobby/" + id + "/join", function(data, status, xhr) {
+        lobbyid = id;
         currentstate = "lobby";
-        document.cookie = "lobby=" + lobbyid;
-        document.cookie = "state=" + currentstate;
+        updateCookie();
+        
+        $("#content").xslt(xhr.responseText, cache.lobby, {"session": sessionid });
+        loaded();
+    });
+}
+
+function showlobby() {
+    $.get(apiurl + sessionid + "/lobby/" + lobbyid + "", function(data, status, xhr) {
+        currentstate = "lobby";
+        updateCookie();
         
         $("#content").xslt(xhr.responseText, cache.lobby);
     });
@@ -120,8 +168,9 @@ function changename() {
     if (!newname)
         return;
     
-    $.get(apiurl + sessionid + "/" + lobbyid + "/change_name/" + newname, function(data, status, xhr) {
-        //todo
+    $.get(apiurl + sessionid + "/lobby/" + lobbyid + "/change_name/" + newname, function(data, status, xhr) {
+        // just refresh lobby
+        showlobby();
     });
 }
 
@@ -130,8 +179,9 @@ function changenum() {
     if (!num)
         return;
     
-    $.get(apiurl + sessionid + "/" + lobbyid + "/change_num/" + num, function(data, status, xhr) {
-        //todo
+    $.get(apiurl + sessionid + "/lobby/" + lobbyid + "/change_num/" + num, function(data, status, xhr) {
+        // just refresh lobby
+        showlobby();
     });
 }
 
@@ -140,36 +190,26 @@ function changeset(e) {
     if (!set)
         return;
     
-    $.get(apiurl + sessionid + "/" + lobbyid + "/change_set/" + set, function(data, status, xhr) {
-        //todo
+    $.get(apiurl + sessionid + "/lobby/" + lobbyid + "/change_set/" + set, function(data, status, xhr) {
+        // just refresh lobby
+        showlobby();
     });
 }
 
-
-function showlobby() {
-    
-}
-
-
 function showlobbies() {
+    load();
     // get lobby
-    // url apiurl + "lobby/" + sessionid
     $.get(apiurl + sessionid + "/lobbies", function(data, status, xhr) {
         if (status !== "success")
             handlehttperror();
         
         // use xslt to convert soap message to page and display it in content area
         var soap = xhr.responseText;
-        $("#content").stop(true, true);     // stop all animations on content element
         $("#content").xslt(soap, cache.lobbies);
-        $("#content").fadeIn(100);
-        
-        // show new content
-        $("#wait").stop(true, true); // stop all animations on wait element
-        $("#wait").fadeOut(100);     // fade out wait cursor
+        loaded();
         
         currentstate = 'lobbies';
-        document.cookie = "state="+currentstate;
+        updateCookie();
     });
 }
 
@@ -195,4 +235,34 @@ function getCookie(name) {
     if (match)
         return match[1];
     return null;
+}
+
+function load() {
+    $("#wait").stop(true, true);
+    $("#content").stop(true, true);     // stop all animations on content element
+      
+    $("#content").fadeOut();    // fade out content
+    $("#wait").fadeIn(100);     // show wait cursor
+}
+
+function loaded() {
+    $("#wait").stop(true, true);
+    $("#content").stop(true, true);     // stop all animations on content element
+        
+    $("#content").fadeIn(100);    // fade out content
+    $("#wait").fadeOut();     // show wait cursor
+}
+
+function updateCookie() {
+    document.cookie = "user="+ username;
+    document.cookie = "session="+ sessionid;
+    document.cookie = "lobby=" + lobbyid;
+    document.cookie = "state=" + currentstate;
+}
+
+function clearCookie() {
+    document.cookie = "user=";
+    document.cookie = "session=";
+    document.cookie = "lobby=";
+    document.cookie = "state=";
 }

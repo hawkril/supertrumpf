@@ -43,6 +43,10 @@ h1 {
     margin: 280px auto;
 }
 
+.contentregion {
+    height: 100%;
+}
+
 #loginbox {
     width: 500px;
     height: 300px;
@@ -57,6 +61,21 @@ h1 {
     font-size: 25px;
     color: gray;
     box-shadow: 0 0 20px rgba(81, 203, 238, 1);
+}
+
+#header {
+    width: 100%;
+    font-size: 25px;
+    text-align: center;
+    margin: 0px;
+}
+
+#footer {
+    width: 100%;
+}
+
+#footer > #leavegame {
+    float: left;
 }
 
 #loginbox > button, 
@@ -113,21 +132,28 @@ h1 {
     overflow: auto;
     border: 1px solid rgb(220,220,220);
     height: calc(100% - 185px);
+    width: 100%;
 }
 
-#leavegame {
-    float: left;
+#lobby {
+    text-align: left;
+}
+
+#lobby label {
+    width: 30%;
+}
+
+#lobby input, 
+#lobby button {
+    display: inline-block;
+    margin: 0 10px 0 0;
+}
+
+#lobby input[type="text"] {
+    width: 50%;
 }
 
 #startgame {
-    float: right;
-}
-
-#leftbox {
-    float: left;
-}
-
-#rightbox {
     float: right;
 }
 
@@ -163,4 +189,25 @@ h1 {
 
 .lobby .set {
     width: 200px;
+}
+
+
+/* Slider */
+
+#content #numplayers {
+    border: 0px solid #695;
+    max-height: 20px;
+    color: #fff;
+    font-size: 13px;
+    max-width: 50%;
+    margin: 0 0 0 10px;
+}
+
+#lobby label {
+    font-weight: normal;
+    display: inline-block;
+}
+
+#lobby main {
+    padding: 10px;
 }

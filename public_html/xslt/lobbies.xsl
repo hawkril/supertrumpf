@@ -24,7 +24,7 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="body">
+    <xsl:template match="lobby">
         <xsl:variable name="lobbyid"><xsl:value-of select="id"/></xsl:variable>
         
         <div class="lobby" id="{$lobbyid}">
