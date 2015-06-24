@@ -24,7 +24,7 @@ type Value struct {
 }
 
 func QueryCard(setID string, index int) (*Card, error) {
-	q, err := database.Query(fmt.Sprintf(`for $x in doc("%s")/cardset/cards/card where $x/no=%d return $x`, setID, index))
+	q, err := database.Query(fmt.Sprintf(`for $x in doc("testdata1/%s")/cardset/cards/card where $x/no=%d return $x`, setID, index))
 	if err != nil {
 		return nil, err
 	}
