@@ -11,9 +11,9 @@ import (
 type Card struct {
 	XMLName xml.Name `xml:"card"`
 
-	Number int    `xml:"no"`
-	Title  string `xml:"titel"`
-	Values []*Value
+	Number int      `xml:"no"`
+	Title  string   `xml:"titel"`
+	Values []*Value `xml:"value"`
 }
 
 type Value struct {
