@@ -367,5 +367,24 @@ func main() {
 		}
 	})
 
+	// Get card
+	m.Get("/api/card/:set/:card", func(p martini.Params, r render.Render) {
+		setID := p["set"]
+		cardString := p["card"]
+
+		cardInt64, err := strconv.ParseInt(cardString, 10, 64)
+		if err != nil {
+			r.XML(http.StatusBadRequest, events.New("card_number_invalid", "system", err.Error()))
+			return
+		}
+
+		card, err := trumpf.QueryCard(setID, int(cardInt64))
+		if err != nil {
+			r.XML(http.StatusNotFound, events.New("card_not_found", "system", err.Error()))
+		} else {
+			r.XML(http.StatusOK, events.New("card_set", "database", card))
+		}
+	})
+
 	m.RunOnAddr(port)
 }
