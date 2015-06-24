@@ -357,6 +357,15 @@ func main() {
 		lobby.Unlock()
 	})
 
+	m.Get("/api/sets", func(p martini.Params, r render.Render) {
+		sets, err := trumpf.QueryAllSets()
+		if err != nil {
+			r.XML(http.StatusNotFound, events.New("sets_not_found", "system", err.Error()))
+		} else {
+			r.XML(http.StatusOK, events.New("sets_set", "database", sets))
+		}
+	})
+
 	// Get set
 	m.Get("/api/set/:set", func(p martini.Params, r render.Render) {
 		set, err := trumpf.QuerySet(p["set"])
