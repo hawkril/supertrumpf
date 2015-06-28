@@ -64,7 +64,7 @@ for x in range(1, card_no+1):
 	ET.SubElement(wcard, "no").text = y
 	ET.SubElement(wcard, "titel").text = y
 	link = 'https://userpage.fu-berlin.de/tspickhofen/xmlpics/number' + y + '.jpg'
-	ET.SubElement(wcard, "value", id="card_pic").text = link
+	ET.SubElement(wcard, "card_pic").text = link
 	ET.SubElement(wcard, "value", id="teiler").text = str(factors(x))
 	ET.SubElement(wcard, "value", id="quer").text = str(sum_digits(x))
 	ET.SubElement(wcard, "value", id="quer_bin").text = str(sum_bin(x))
