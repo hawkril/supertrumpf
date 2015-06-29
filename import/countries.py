@@ -131,7 +131,7 @@ def	addset():
 		setsdoc.appendChild(sets)
 	else:
 		setsdoc = minidom.parse('sets.xml')
-		sets = elem.getElementsByTagName("sets")[0]
+		sets = setsdoc.getElementsByTagName("sets")[0]
 
 	set = setsdoc.createElement('set')
 	set.setAttribute('name', setname)
