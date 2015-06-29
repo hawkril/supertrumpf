@@ -1,28 +1,3 @@
 <?xml version='1.0'?>
 <sets>
-	<set name="numbers">
-		<title>Zahlen</title>
-		<card_count>16</card_count>
-		<max_players>2</max_players>
-	</set>
-	<set name="numbers16">
-		<title>16_Zahlen</title>
-		<card_count>16</card_count>
-		<max_players>2</max_players>
-	</set>
-	<set name="numbers24">
-		<title>24_Zahlen</title>
-		<card_count>24</card_count>
-		<max_players>3</max_players>
-	</set>
-	<set name="numbers32">
-		<title>32_Zahlen</title>
-		<card_count>32</card_count>
-		<max_players>4</max_players>
-	</set>
-	<set name="numbers40">
-		<title>40_Zahlen</title>
-		<card_count>40</card_count>
-		<max_players>5</max_players>
-	</set>
 </sets>
