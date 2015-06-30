@@ -10,6 +10,9 @@ var lobbyid = null;
 var cache = new Object();
 var logincontent = null;
 
+var polltimer = null;
+var polltimeout = 5 * 60 * 1000;
+
 
 $(document).ready(function() {
     
@@ -72,9 +75,11 @@ $(document).on("click", "#newgame", function() { newgame(); });
 
 $(document).on("click", "#leavegame", function() { leavegame(); });
 
-$(document).on("click", ".lobby", function(e) { join(e); });
+$(document).on("click", "#startgame", function() { rungame(); });
 
 $(document).on("click", "#changename", function() { changename(); });
+
+$(document).on("click", ".lobby", function(e) { join(e); });
 
 function login() {
     var name = $("#username").val();
@@ -133,7 +138,15 @@ function leavegame() {
     currentstate = "lobbies";
     updateCookie();
     
+    unsubscribe();
     showlobbies();
+}
+
+
+function rungame() {
+	$.get(apiurl + sessionid + "/lobby/" + lobbyid + "/start", function(data, status, xhr) {
+
+    });
 }
 
 function join(e) {
@@ -151,15 +164,73 @@ function join(e) {
         
         $("#content").xslt(xhr.responseText, cache.lobby, {"session": sessionid });
         loaded();
+        subscribelobby();
+
     });
 }
+
+function subscribelobbies() {
+    polllobbies();
+    polltimer = setTimeout(polllobbies, polltimeout);
+}
+
+function polllobbies() {
+	$.get(apiurl + sessionid + "/lobbies/events", function(data, status, xhr) {
+
+		// refresh
+    	showlobbies();
+
+    	// reset timeout
+    	clearTimeout(polltimer);
+	    polltimer = setTimeout(polllobbies, polltimeout);
+    });
+}
+
+function subscribelobby() {
+    polllobby();
+    polltimer = setTimeout(polllobby, polltimeout);
+}
+
+function polllobby() {
+	$.get(apiurl + sessionid + "/lobby/" + lobbyid + "/events", function(data, status, xhr) {
+
+		// refresh
+    	showlobby();
+
+    	// reset timeout
+    	clearTimeout(polltimer);
+	    polltimer = setTimeout(polllobby, polltimeout);
+    });
+}
+
+function subscribegame() {
+
+}
+
+function pollgame() {
+	$.get(apiurl + sessionid + "/lobby/" + lobbyid + "/events", function(data, status, xhr) {
+
+		// refresh game
+    	//showlobby();
+
+    	// reset timeout
+    	clearTimeout(polltimer);
+	    polltimer = setTimeout(polllobby, polltimeout);
+    });	
+}
+
+function unsubscribe() {
+	clearTimeout(polltimer);
+}
+
+
 
 function showlobby() {
     $.get(apiurl + sessionid + "/lobby/" + lobbyid + "", function(data, status, xhr) {
         currentstate = "lobby";
         updateCookie();
         
-        $("#content").xslt(xhr.responseText, cache.lobby);
+        $("#content").xslt(xhr.responseText, cache.lobby, sessionid);
     });
 }
 

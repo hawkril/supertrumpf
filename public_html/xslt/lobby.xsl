@@ -20,16 +20,18 @@
                 <div id="header">Warte auf weitere Spieler...</div>
                 <div id="main">
                     <xsl:if test="$session = //lobby/owner/id">
-                    <div><label>Spielname:</label><input type="text" class="form-control" id="gamename" placeholder="{$lobbyname}" /><button type="button" class="btn btn-default" id="changename">Ändern</button></div>
+                    <div><label>Spielname:</label>
+                    <span><xsl:value-of select="//lobby/name" /></span>
+                    <!--<input type="text" class="form-control" id="gamename" placeholder="{$lobbyname}" />--><button type="button" class="btn btn-default" id="changename">Ändern</button></div>
                     </xsl:if>
                     <div>
                         <label>Maximale Spieler: </label> 
-                        <span id="lblnumplayers">
-                            <xsl:value-of select="//lobby/numPlayers" />
-                        </span>
+                        <span id="lblnumplayers"><xsl:value-of select="//lobby/numPlayers" /></span>
+
+                        <!--
                         <xsl:if test="$session = //lobby/owner/id">
                             <input type="range" min="0" max="10" value="{$numPlayers}" step="1" id="numplayers" />
-                        </xsl:if>
+                        </xsl:if>-->
                     </div>
                     <div><label>Erstellt von: </label><xsl:value-of select="//lobby/owner/name" /></div>
                     <div><label>Kartenset:</label></div>
