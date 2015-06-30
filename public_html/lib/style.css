@@ -54,7 +54,7 @@ h1 {
     text-align: center;
 }
 
-#toast > div {
+#message {
     display: table-cell;
     vertical-align: middle;
     color: white;

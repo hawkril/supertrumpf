@@ -2,16 +2,23 @@
 var apiurl = "http://46.4.83.144:8888/api/";
 //var apiurl = "test-api/";
 
-var currentstate = 'login';
-var username = null;
-var sessionid = null;
-var lobbyid = null;
+var session = new Object();
+session.currentstate = 'login';
+session.username = null;
+session.sessionid = null;
+session.lobbyid = null;
+session.set = null;
 
+// cache storing xslt and xml data
 var cache = new Object();
-var logincontent = null;
 
-var polltimer = null;
-var polltimeout = 5 * 60 * 1000;
+// cache for event listening / polling
+var listener = new Object();
+listener.POLL_TIMEOUT = 5 * 60 * 1000;
+
+var toast = new Object();
+toast.toasttimer = null;
+
 
 
 $(document).ready(function() {
@@ -22,30 +29,30 @@ $(document).ready(function() {
     // caching xslt style sheets
     $.get("xslt/lobbies.xsl", function(data, status, xhr) { cache.lobbies = xhr.responseText; });
     $.get("xslt/lobby.xsl", function(data, status, xhr) { cache.lobby = xhr.responseText; });
-    
+    $.get("xslt/card.xsl", function(data, status, xhr) { cache.card = xhr.responseText; });
+
+    // cache available card sets as unparsed xml file
+    $.get(apiurl + "/sets", function(data, status, xhr) { cache.sets = xhr.responseText; });
+
     // restore session from cookie
-    sessionid = getCookie("session");
-    username = getCookie("user");
-    lobbyid = getCookie("lobby");
-    currentstate = getCookie("state");
     
     // return to state in cookie
-    switch (currentstate) {
+    switch (session.currentstate) {
         case "lobbies":
-            if (sessionid) {
+            if (session.sessionid) {
                 showlobbies();
                 return;
             }
             break;
         case "lobby":
-            if (sessionid && lobbyid) {
+            if (session.sessionid && session.lobbyid) {
                 showlobby();
                 return;
             }
             break;
     }
     
-    currentstate = "login";
+    session.currentstate = "login";
     $("#content").fadeIn();
     
 });
@@ -56,11 +63,10 @@ $(document).on("mousemove", "#numplayers", function() {
     $("#lblnumplayers").html(num);
 });
 
-$(document).on("click", "#login", function() { login(); });
-
+// enable enter to login and create game
 $(document).keydown(function(event) {
     if (event.key === "Enter") {
-        switch (currentstate) {
+        switch (session.currentstate) {
             case "login":
                 login();
                 break;
@@ -70,6 +76,11 @@ $(document).keydown(function(event) {
         }
     }
 });
+
+
+$(document).on("change", "#numplayers", function() { changenum(); });
+
+$(document).on("click", "#login", function() { login(); });
 
 $(document).on("click", "#newgame", function() { newgame(); });
 
@@ -97,12 +108,12 @@ function login() {
             handlehttperror();
         
         // extract session id and corrected username
-        username = $(data).find("name").text();
-        sessionid = $(data).find("id").text();
-        document.cookie = "user="+username;
-        document.cookie = "session="+sessionid;
+        session.username = $(data).find("name").text();
+        session.sessionid = $(data).find("id").text();
+        document.cookie = "user="+session.username;
+        document.cookie = "session="+session.sessionid;
         
-        if (username !== "" && sessionid !== "") {
+        if (session.username !== "" && session.sessionid !== "") {
             showlobbies();
         }
         else {
@@ -118,24 +129,35 @@ function newgame() {
     if (!name)
         return;
     
-    $.get(apiurl + sessionid + "/lobbies/new/" + encodeURIComponent(name), function(data, status, xhr) {
-        lobbyid = $(data).find("lobby > id").text();
-        currentstate = "lobby";
+    $.get(apiurl + session.sessionid + "/lobbies/new/" + encodeURIComponent(name), function(data, status, xhr) {
+        session.lobbyid = $(data).find("lobby > id").text();
+        session.currentstate = "lobby";
         updateCookie();
         
-        $("#content").xslt(xhr.responseText, cache.lobby, { "session" : sessionid });
+        $("#content").xslt(xhr.responseText, cache.lobby, { "session" : session.sessionid });
+
+        subscribe(session.sessionid + "/lobby/" + session.lobbyid + "/events", refreshgame)
     });
+}
+
+function refreshgame(event) {
+	//TODO check event type
+
+	$.get(apiurl + session.sessionid + "/lobby/" + session.lobbyid, function(data, status, xhr) {
+        $("#content").xslt(xhr.responseText, cache.lobby, { "session" : session.sessionid });
+    })
 }
 
 function leavegame() {
     
-    $.get(apiurl + sessionid + "/lobby/" + lobbyid + "/leave", function(data, status, xhr) {
+    $.get(apiurl + session.sessionid + "/lobby/" + session.lobbyid + "/leave", function(data, status, xhr) {
         // fire and forget for the moment...
         // maybe do a toast...
+        showToast("Das Spiel wurde verlassen...")
     });
 
-    lobbyid = null;
-    currentstate = "lobbies";
+    session.lobbyid = null;
+    session.currentstate = "lobbies";
     updateCookie();
     
     unsubscribe();
@@ -144,9 +166,11 @@ function leavegame() {
 
 
 function rungame() {
-	$.get(apiurl + sessionid + "/lobby/" + lobbyid + "/start", function(data, status, xhr) {
-
+	$.get(apiurl + session.sessionid + "/lobby/" + session.lobbyid + "/start", function(data, status, xhr) {
+		// fire and forget we should receive an event listening the lobby...
+		showToast("Das Spiel wird gestartet...")
     });
+    load();
 }
 
 function join(e) {
@@ -157,80 +181,25 @@ function join(e) {
     if (!id)
         return;
     load();
-    $.get(apiurl + sessionid + "/lobby/" + id + "/join", function(data, status, xhr) {
-        lobbyid = id;
-        currentstate = "lobby";
+    $.get(apiurl + session.sessionid + "/lobby/" + id + "/join", function(data, status, xhr) {
+        session.lobbyid = id;
+        session.currentstate = "lobby";
         updateCookie();
         
-        $("#content").xslt(xhr.responseText, cache.lobby, {"session": sessionid });
+        $("#content").xslt(xhr.responseText, cache.lobby, {"session": session.sessionid });
         loaded();
-        subscribelobby();
+        subscribe(session.sessionid + "/lobby/" + session.lobbyid + "/events", refreshgame)
 
     });
 }
-
-function subscribelobbies() {
-    polllobbies();
-    polltimer = setTimeout(polllobbies, polltimeout);
-}
-
-function polllobbies() {
-	$.get(apiurl + sessionid + "/lobbies/events", function(data, status, xhr) {
-
-		// refresh
-    	showlobbies();
-
-    	// reset timeout
-    	clearTimeout(polltimer);
-	    polltimer = setTimeout(polllobbies, polltimeout);
-    });
-}
-
-function subscribelobby() {
-    polllobby();
-    polltimer = setTimeout(polllobby, polltimeout);
-}
-
-function polllobby() {
-	$.get(apiurl + sessionid + "/lobby/" + lobbyid + "/events", function(data, status, xhr) {
-
-		// refresh
-    	showlobby();
-
-    	// reset timeout
-    	clearTimeout(polltimer);
-	    polltimer = setTimeout(polllobby, polltimeout);
-    });
-}
-
-function subscribegame() {
-
-}
-
-function pollgame() {
-	$.get(apiurl + sessionid + "/lobby/" + lobbyid + "/events", function(data, status, xhr) {
-
-		// refresh game
-    	//showlobby();
-
-    	// reset timeout
-    	clearTimeout(polltimer);
-	    polltimer = setTimeout(polllobby, polltimeout);
-    });	
-}
-
-function unsubscribe() {
-	clearTimeout(polltimer);
-}
-
 
 
 function showlobby() {
-    $.get(apiurl + sessionid + "/lobby/" + lobbyid + "", function(data, status, xhr) {
-        currentstate = "lobby";
+    $.get(apiurl + session.sessionid + "/lobby/" + session.lobbyid + "", function(data, status, xhr) {
+        session.currentstate = "lobby";
         updateCookie();
         
-        $("#content").xslt(xhr.responseText, cache.lobby, sessionid);
+        $("#content").xslt(xhr.responseText, cache.lobby, session.sessionid);
     });
 }
 
@@ -239,7 +208,7 @@ function changename() {
     if (!newname)
         return;
     
-    $.get(apiurl + sessionid + "/lobby/" + lobbyid + "/change_name/" + newname, function(data, status, xhr) {
+    $.get(apiurl + session.sessionid + "/lobby/" + session.lobbyid + "/change_name/" + newname, function(data, status, xhr) {
         // just refresh lobby
         showlobby();
     });
@@ -250,7 +219,7 @@ function changenum() {
     if (!num)
         return;
     
-    $.get(apiurl + sessionid + "/lobby/" + lobbyid + "/change_num/" + num, function(data, status, xhr) {
+    $.get(apiurl + session.sessionid + "/lobby/" + session.lobbyid + "/change_num/" + num, function(data, status, xhr) {
         // just refresh lobby
         showlobby();
     });
@@ -261,7 +230,7 @@ function changeset(e) {
     if (!set)
         return;
     
-    $.get(apiurl + sessionid + "/lobby/" + lobbyid + "/change_set/" + set, function(data, status, xhr) {
+    $.get(apiurl + session.sessionid + "/lobby/" + session.lobbyid + "/change_set/" + set, function(data, status, xhr) {
         // just refresh lobby
         showlobby();
     });
@@ -270,7 +239,7 @@ function changeset(e) {
 function showlobbies() {
     load();
     // get lobby
-    $.get(apiurl + sessionid + "/lobbies", function(data, status, xhr) {
+    $.get(apiurl + session.sessionid + "/lobbies", function(data, status, xhr) {
         if (status !== "success")
             handlehttperror();
         
@@ -279,18 +248,21 @@ function showlobbies() {
         $("#content").xslt(soap, cache.lobbies);
         loaded();
         
-        currentstate = 'lobbies';
+        session.currentstate = 'lobbies';
         updateCookie();
     });
 }
 
-
+function showCard() {
+	$.get(apiurl + session.sessionid + "/")
+}
 
 function showlogin() {
     $("#wait").stop(true, true);
     $("#wait").fadeOut(100);
     $("#content").replaceWith(logincontent);
     $("#content").fadeIn(200);
+
 }
 
 
@@ -298,14 +270,50 @@ function handlehttperror() {
     
 }
 
+listener.subscribe = function(url, callback) {
+	pollpollUrl = url;
+	pollCallback = callback;
+    poll();
+    pollTimer = setTimeout(function() {
+    	poll();
+    }, POLL_TIMEOUT);
+}
+
+listener.poll = function() {
+	if (!pollUrl)
+		return;
+
+	// poll with http-idle
+	$.get(apiurl + pollUrl, function(data, status, xhr) {
+		// something happend call callback
+		if (pollCallback)
+			pollCallback(data);
+
+    	// reset timeout
+    	clearTimeout(pollTimer);
+	    pollTimer = setTimeout(function() {
+	    	poll();
+	    }, POLL_TIMEOUT);
+    });
+
+}
+
+listener.unsubscribe = function() {
+	clearTimeout(pollTimer);
+}
 
 
-function getCookie(name) {
-    var regex = new RegExp(name + "=(.[^;]+)");
-    var match = document.cookie.match(regex);
-    if (match)
-        return match[1];
-    return null;
+
+toast.show = function(message) {
+	if (!toast.toastTimer)
+    	clearTimeout(toast.toastTimer);
+	
+	$("#toast").stop(true, true);
+	$("#message").text(message);
+	$("#toast").fadeIn(200);
+	toast.toastTimer = setTimeout(function() {
+		$("#toast").fadeOut(2000);
+	}, 2000);
 }
 
 function load() {
@@ -324,16 +332,31 @@ function loaded() {
     $("#wait").fadeOut();     // show wait cursor
 }
 
-function updateCookie() {
-    document.cookie = "user="+ username;
-    document.cookie = "session="+ sessionid;
-    document.cookie = "lobby=" + lobbyid;
-    document.cookie = "state=" + currentstate;
+session.updateCookie = function() {
+    document.cookie = "user="+ this.username;
+    document.cookie = "session="+ this.sessionid;
+    document.cookie = "lobby=" + this.lobbyid;
+    document.cookie = "state=" + this.currentstate;
 }
 
-function clearCookie() {
+session.clearCookie = function() {
     document.cookie = "user=";
     document.cookie = "session=";
     document.cookie = "lobby=";
     document.cookie = "state=";
+}
+
+session.restore = function() {
+    this.sessionid = this.getCookie("session");
+    this.username = this.getCookie("user");
+    this.lobbyid = this.getCookie("lobby");
+    this.currentstate = this.getCookie("state");
+}
+
+session.getCookie = function(name) {
+    var regex = new RegExp(name + "=(.[^;]+)");
+    var match = document.cookie.match(regex);
+    if (match)
+        return match[1];
+    return null;
 }
