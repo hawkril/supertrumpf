@@ -39,7 +39,7 @@ func main() {
 	}
 
 	// Connect to the database
-	err := database.Connect("localhost:1984", "xml", "einloggen")
+	err := database.Connect("localhost:1984", "xml", "trumpf2015")
 	if err != nil {
 		log.Fatalln(err)
 	}
