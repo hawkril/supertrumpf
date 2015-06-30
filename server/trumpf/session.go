@@ -190,3 +190,37 @@ func (this *session) PlayerCards() []*playerCard {
 	}
 	return playerCards
 }
+
+func GetSession(sessionID string) *session {
+	m.RLock()
+	defer m.RUnlock()
+
+	return l[sessionID]
+}
+
+func (this *session) getPlayer(playerID string) *Player {
+	for _, p := range this.Players {
+		if p.Player.ID == playerID {
+			return p
+		}
+	}
+	return nil
+}
+
+func (this *session) GetOwnCard(playerID string) *Card {
+	this.RLock()
+	defer this.RUnlock()
+	p := this.getPlayer(playerID)
+	if p == nil {
+		return nil
+	}
+	card, err := p.Deck.GetCurrent()
+	if err != nil || card == nil {
+		return nil
+	}
+	return card
+}
+
+func (this *session) HasPlayer(playerID string) bool {
+	return this.getPlayer(playerID) != nil
+}

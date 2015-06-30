@@ -359,6 +359,77 @@ func main() {
 		lobby.Unlock()
 	})
 
+	m.Get("/api/:session/game/:game/events", func(p martini.Params, r render.Render) {
+		sessionID := p["session"]
+		gameID := p["game"]
+
+		player := players.GetPlayer(sessionID)
+		if player == nil {
+			r.XML(http.StatusUnauthorized, events.New("login_required", "system", nil))
+			return
+		}
+
+		game := trumpf.GetSession(gameID)
+		if game == nil {
+			r.XML(http.StatusNotFound, events.New("game_not_found", "system", nil))
+			return
+		}
+
+		if !game.HasPlayer(sessionID) {
+			r.XML(http.StatusUnauthorized, events.New("game_not_joined", "system", nil))
+			return
+		}
+
+		player.RLock()
+		ch := player.GetChannel("game_" + game.ID)
+		player.RUnlock()
+
+		t := time.NewTimer(5 * time.Minute)
+		select {
+		case ev := <-ch:
+			r.XML(http.StatusOK, ev)
+			t.Stop()
+		case <-t.C:
+			r.XML(http.StatusRequestTimeout, events.New("game_event", "system", "No new events in 5 minutes."))
+		}
+	})
+
+	m.Get("/api/:session/game/:game/move/:prop", func(p martini.Params, r render.Render) {
+		sessionID := p["session"]
+		gameID := p["game"]
+		rawProperty := p["prop"]
+
+		player := players.GetPlayer(sessionID)
+		if player == nil {
+			r.XML(http.StatusUnauthorized, events.New("login_required", "system", nil))
+			return
+		}
+
+		game := trumpf.GetSession(gameID)
+		if game == nil {
+			r.XML(http.StatusNotFound, events.New("game_not_found", "system", nil))
+			return
+		}
+
+		if !game.HasPlayer(sessionID) {
+			r.XML(http.StatusUnauthorized, events.New("game_not_joined", "system", nil))
+			return
+		}
+
+		property64, err := strconv.ParseInt(rawProperty, 10, 64)
+		propertyInt := int(property64)
+		if err != nil || propertyInt < 0 {
+			r.XML(http.StatusBadRequest, events.New("num_invalid", "system", "The property number is not a valid number."))
+			return
+		}
+
+		if game.MakeMove(player.ID, propertyInt) {
+			r.XML(http.StatusBadRequest, events.New("game_move_complete", "system", nil))
+		} else {
+			r.XML(http.StatusBadRequest, events.New("game_invalid_move", "system", "You are not allowed to make this move."))
+		}
+	})
+
 	// Query all sets
 	m.Get("/api/sets", func(p martini.Params, r render.Render) {
 		sets, err := trumpf.QueryAllSets()
