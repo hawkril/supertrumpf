@@ -66,6 +66,19 @@ func StartGame(lobby *lobbies.Lobby) *session {
 		s.ID = utils.GenerateID(32)
 	}
 
+	// ToDo: Error handling
+	set, _ := QuerySet(lobby.Set)
+	cards := utils.RandomShuffle(set.CardCount)
+
+	for len(cards) >= len(s.Players) {
+		for i, p := range s.Players {
+			// ToDo: Error handling
+			card, _ := QueryCard(lobby.Set, cards[i])
+			p.Deck.AddBack(card)
+		}
+		cards = cards[len(s.Players)-1:]
+	}
+
 	return s
 }
 
