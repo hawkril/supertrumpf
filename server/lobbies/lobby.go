@@ -32,6 +32,7 @@ type Lobby struct {
 	playersSlice []string        `xml:"players>player"`
 }
 
+// NewLobby creates a lobby and adds it to the lobby list
 func NewLobby(owner *players.Player, name string, numPlayers int) *Lobby {
 	lobby := &Lobby{
 		ID:         utils.GenerateID(32),
@@ -52,11 +53,9 @@ func (this *Lobby) SetNumPlayers(player *players.Player, number int) bool {
 	}
 	this.NumPlayers = number
 	this.SendEvent(events.New("lobby_num_players_changed", this.Owner.ID, this.NumPlayers))
-
 	if this.Players.Len() > this.NumPlayers {
 		this.SendEvent(events.New("overfull", this.Owner.ID, this.NumPlayers))
 	}
-
 	return true
 }
 
@@ -112,20 +111,28 @@ func (this *Lobby) HasPlayer(player *players.Player) *list.Element {
 	return nil
 }
 
-func (this *Lobby) Join(player *players.Player) {
+func (this *Lobby) Join(player *players.Player) bool {
 	if this.HasPlayer(player) == nil && this.Players.Len() < this.NumPlayers {
 		this.Players.PushBack(player)
 		this.SendEvent(events.New("player_joined", player.ID, nil))
+		this.generatePlayerSlice()
+		return true
 	}
-	this.generatePlayerSlice()
+	return false
 }
 
 func (this *Lobby) Leave(player *players.Player) {
+	// Remove player and send event to the remaining players
 	if p := this.HasPlayer(player); p != nil {
 		this.Players.Remove(p)
 		this.SendEvent(events.New("player_left", player.ID, nil))
+		this.generatePlayerSlice()
 	}
-	this.generatePlayerSlice()
+	// If the player is the owner, close the lobby
+	if this.Owner.ID == player.ID {
+		this.SendEvent(events.New("lobby_closed", player.ID, nil))
+		removeLobby(this.ID)
+	}
 }
 
 func (this *Lobby) generatePlayerSlice() {
@@ -152,6 +159,12 @@ func addLobby(lobby *Lobby) bool {
 	}
 	l[lobby.ID] = lobby
 	return true
+}
+
+func removeLobby(lobbyID string) {
+	m.Lock()
+	delete(l, lobbyID)
+	m.Unlock()
 }
 
 func GetLobbies() []*Lobby {

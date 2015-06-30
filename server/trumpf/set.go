@@ -11,10 +11,12 @@ import (
 type Set struct {
 	XMLName xml.Name `xml:"set"`
 
-	ID         string `xml:"name,attr"`
-	Title      string `xml:"title"`
-	CardCount  int    `xml:"card_count"`
-	MaxPlayers int    `xml:"max_players"`
+	ID         string         `xml:"name,attr"`
+	Title      string         `xml:"title"`
+	CardCount  int            `xml:"card_count"`
+	MaxPlayers int            `xml:"max_players"`
+	CardPic    string         `xml:"card_pic"`
+	Properties []*PropertyDef `xml:"property_def"`
 }
 
 func QuerySet(id string) (*Set, error) {
@@ -29,7 +31,10 @@ func QuerySet(id string) (*Set, error) {
 		return nil, errors.New("Set not found")
 	}
 	s := &Set{}
-	err = xml.Unmarshal([]byte(rows[0]), s)
+	if err = xml.Unmarshal([]byte(rows[0]), s); err != nil {
+		return nil, err
+	}
+	err = xml.Unmarshal([]byte(rows[0]), s.Properties)
 	return s, err
 }
 

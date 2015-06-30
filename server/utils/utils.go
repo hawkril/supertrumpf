@@ -28,3 +28,7 @@ func GenerateID(n int) string {
 func RandomInt(min, max int) int {
 	return rnd.Intn(max-min+1) + min
 }
+
+func RandomShuffle(n int) []int {
+	return rnd.Perm(n)
+}

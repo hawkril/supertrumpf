@@ -1,10 +1,20 @@
 package trumpf
 
+import (
+	"encoding/xml"
+)
+
 type PropertyDef struct {
-	ID             int
-	Name           string
-	Unit           string
-	IsBiggerBetter bool
+	XMLName xml.Name `xml:"value"`
+
+	ID   int    `xml:"tag"`
+	Name string `xml:"name"`
+	Unit string `xml:"suffix"`
+	Type string `xml:"type"`
+}
+
+func (this *PropertyDef) IsBiggerBetter() bool {
+	return this.Type == "bigger"
 }
 
 type Property struct {

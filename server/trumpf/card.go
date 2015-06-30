@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"strconv"
 
 	"trumpf-core/database"
 )
@@ -14,6 +15,7 @@ type Card struct {
 	Number int      `xml:"no"`
 	Title  string   `xml:"titel"`
 	Values []*Value `xml:"value"`
+	SetID  string   `xml:"set_id"`
 }
 
 type Value struct {
@@ -31,7 +33,12 @@ func QueryCard(setID string, index int) (*Card, error) {
 	if len(q) == 0 {
 		return nil, errors.New("Card not found")
 	}
-	c := &Card{}
+	c := &Card{SetID: setID}
 	err = xml.Unmarshal([]byte(q[0]), c)
 	return c, err
+}
+
+func (this *Value) FloatContent() float64 {
+	res, _ := strconv.ParseFloat(this.Content, 64)
+	return res
 }

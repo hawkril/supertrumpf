@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -25,12 +26,11 @@ const (
 	LOBBY_INITIAL_PLAYERS = 4
 )
 
-type errorPayload struct {
-	Message  string `xml:"message"`
-	Redirect string `xml:"redirect,omitempty"`
-}
-
 func main() {
+	// This should go away with the next Go version
+	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	// Read the port from the parameters
 	port := ":80"
 	if len(os.Args) < 2 {
 		log.Println("No port specified, assuming 80")
@@ -38,11 +38,13 @@ func main() {
 		port = os.Args[1]
 	}
 
-	err := database.Connect("localhost:1984", "xml", "trumpf2015")
+	// Connect to the database
+	err := database.Connect("localhost:1984", "xml", "einloggen")
 	if err != nil {
 		log.Fatalln(err)
 	}
 
+	// Initialize Martini
 	m := martini.Classic()
 	m.Use(render.Renderer(render.Options{IndentXML: true, PrefixXML: []byte(xml.Header)}))
 
@@ -357,6 +359,7 @@ func main() {
 		lobby.Unlock()
 	})
 
+	// Query all sets
 	m.Get("/api/sets", func(p martini.Params, r render.Render) {
 		sets, err := trumpf.QueryAllSets()
 		if err != nil {
@@ -366,7 +369,7 @@ func main() {
 		}
 	})
 
-	// Get set
+	// Query single set
 	m.Get("/api/set/:set", func(p martini.Params, r render.Render) {
 		set, err := trumpf.QuerySet(p["set"])
 		if err != nil {
@@ -376,7 +379,7 @@ func main() {
 		}
 	})
 
-	// Get card
+	// Query single card
 	m.Get("/api/card/:set/:card", func(p martini.Params, r render.Render) {
 		setID := p["set"]
 		cardString := p["card"]
@@ -395,5 +398,6 @@ func main() {
 		}
 	})
 
+	// Start Martini
 	m.RunOnAddr(port)
 }

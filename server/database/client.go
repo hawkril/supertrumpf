@@ -13,7 +13,7 @@ var (
 
 func Connect(host, user, password string) (err error) {
 	client, err = basex.New(host, user, password)
-	return err
+	return
 }
 
 func Query(query string) ([]string, error) {
