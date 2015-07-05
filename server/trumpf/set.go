@@ -34,7 +34,7 @@ func QuerySet(id string) (*Set, error) {
 	if err = xml.Unmarshal([]byte(rows[0]), s); err != nil {
 		return nil, err
 	}
-	err = xml.Unmarshal([]byte(rows[0]), s.Properties)
+	err = xml.Unmarshal([]byte(rows[0]), &s.Properties)
 	return s, err
 }
 
