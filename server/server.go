@@ -14,6 +14,7 @@ import (
 
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
+	"github.com/martini-contrib/cors"
 
 	"trumpf-core/database"
 	"trumpf-core/events"
