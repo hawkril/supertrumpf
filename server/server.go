@@ -48,6 +48,11 @@ func main() {
 	m := martini.Classic()
 	m.Use(render.Renderer(render.Options{IndentXML: true, PrefixXML: []byte(xml.Header)}))
 
+    // only for development reason enable Access Control Allow Origin Header
+    m.Use(cors.Allow(&cors.Options{
+        AllowAllOrigins: true,
+    }))
+
 	// Login handler
 	m.Get("/api/login/:user", func(p martini.Params, r render.Render) {
 		userName := p["user"]
