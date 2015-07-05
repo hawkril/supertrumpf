@@ -24,12 +24,11 @@ func Query(query string) ([]string, error) {
 	m.Lock()
 
 	q := client.Query(query)
-	buf, err = q.Execute()
+	_, err = q.Execute()
 	if err != nil {
 		m.Unlock()
 		return nil, err
 	}
-	result = append(result, buf)
 	for q.More() {
 		buf, err = q.Next()
 		if err != nil {
