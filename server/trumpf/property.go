@@ -7,7 +7,7 @@ import (
 type PropertyDef struct {
 	XMLName xml.Name `xml:"value"`
 
-	ID   int    `xml:"tag"`
+	ID   string    `xml:"tag"`
 	Name string `xml:"name"`
 	Unit string `xml:"suffix"`
 	Type string `xml:"type"`
