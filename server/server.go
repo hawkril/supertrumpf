@@ -347,6 +347,7 @@ func main() {
 		}
 
 		lobby.Lock()
+		defer lobby.Unlock()
 		ps := make([]*players.Player, lobby.Players.Len())
 		i := 0
 		for p := lobby.Players.Front(); p != nil; p = p.Next() {
@@ -354,9 +355,12 @@ func main() {
 			i++
 		}
 		if lobby.Owner.ID == player.ID {
-			lobby.SendEvent(events.New("lobby_started", player.ID, trumpf.StartGame(lobby).ID))
+			if game, err := trumpf.StartGame(lobby); err != nil {
+				r.XML(http.StatusBadRequest, events.New("lobby_not_started", "system", err))
+			} else {
+				lobby.SendEvent(events.New("lobby_started", player.ID, .ID))				
+			}
 		}
-		lobby.Unlock()
 	})
 
 	m.Get("/api/:session/game/:game/events", func(p martini.Params, r render.Render) {

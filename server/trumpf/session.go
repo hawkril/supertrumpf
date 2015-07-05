@@ -44,12 +44,13 @@ func (this *session) ShufflePlayers() {
 		if a == b {
 			continue
 		}
+
 		this.Players[a], this.Players[b] = this.Players[b], this.Players[a]
 	}
 }
 
 // StartGame takes a lobby and converts it into a game session
-func StartGame(lobby *lobbies.Lobby) *session {
+func StartGame(lobby *lobbies.Lobby) (*session, error) {
 	ps := make([]*Player, lobby.Players.Len())
 	i := 0
 	for p := lobby.Players.Front(); p != nil; p = p.Next() {
@@ -66,20 +67,25 @@ func StartGame(lobby *lobbies.Lobby) *session {
 		s.ID = utils.GenerateID(32)
 	}
 
-	// ToDo: Error handling
-	set, _ := QuerySet(lobby.Set)
+	set, err := QuerySet(lobby.Set)
+	if err != nil {
+		return nil, err
+	}
 	cards := utils.RandomShuffle(set.CardCount)
 
 	for len(cards) >= len(s.Players) {
 		for i, p := range s.Players {
 			// ToDo: Error handling
-			card, _ := QueryCard(lobby.Set, cards[i])
+			card, err := QueryCard(lobby.Set, cards[i])
+			if err != nil {
+				return nil, err
+			}
 			p.Deck.AddBack(card)
 		}
 		cards = cards[len(s.Players)-1:]
 	}
 
-	return s
+	return s, nil
 }
 
 func addSession(sess *session) bool {
