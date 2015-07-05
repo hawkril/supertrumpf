@@ -16,7 +16,7 @@ type Set struct {
 	CardCount  int            `xml:"card_count"`
 	MaxPlayers int            `xml:"max_players"`
 	CardPic    string         `xml:"card_pic"`
-	Properties []*PropertyDef `xml:"property_def"`
+	Properties []*PropertyDef `xml:"properties>property"`
 }
 
 func QuerySet(id string) (*Set, error) {
