@@ -35,11 +35,13 @@ func QuerySet(id string) (*Set, error) {
 		return nil, err
 	}
 
-	rows, err = database.Query(`for $x in doc("testdata1/` + id + `.xml")/cardset/definition return $x`)
+	rows, err = database.Query(`for $x in doc("testdata1/` + id + `.xml")/cardset/definition/values return $x`)
 	if err != nil {
 		return nil, err
 	}
-	err = xml.Unmarshal([]byte(rows[0]), &s.Properties)
+	wrapper := &PropertyWrapper{}
+	err = xml.Unmarshal([]byte(rows[0]), wrapper)
+	s.Properties = wrapper.Values
 	return s, err
 }
 

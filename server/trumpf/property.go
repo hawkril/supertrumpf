@@ -5,12 +5,16 @@ import (
 )
 
 type PropertyDef struct {
-	XMLName xml.Name `xml:"values>value"`
+	XMLName xml.Name `xml:"value"`
 
 	ID   int    `xml:"tag"`
 	Name string `xml:"name"`
 	Unit string `xml:"suffix"`
 	Type string `xml:"type"`
+}
+
+type PropertyWrapper struct {
+	Values []*PropertyDef `xml:"value"`
 }
 
 func (this *PropertyDef) IsBiggerBetter() bool {
