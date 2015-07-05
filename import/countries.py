@@ -72,7 +72,7 @@ def createset():
 	definition = doc.createElement('definition')
 	cardset.appendChild(definition)
 	values = doc.createElement('values')
-	cardset.appendChild(values)
+	definition.appendChild(values)
 	for x in xrange(0,no_values):
 		value  = doc.createElement('value')
 		values.appendChild(value)
@@ -127,7 +127,7 @@ def addcard(elem):
 def	addset():
 	if not os.path.isfile('sets.xml'):
 		setsdoc = minidom.Document()
-		sets = doc.createElement('cardset')
+		sets = doc.createElement('sets')
 		setsdoc.appendChild(sets)
 	else:
 		setsdoc = minidom.parse('sets.xml')
