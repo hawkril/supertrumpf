@@ -363,7 +363,7 @@ func main() {
 			if game, err := trumpf.StartGame(lobby); err != nil {
 				r.XML(http.StatusBadRequest, events.New("lobby_not_started", "system", err))
 			} else {
-				lobby.SendEvent(events.New("lobby_started", player.ID, .ID))				
+				lobby.SendEvent(events.New("lobby_started", player.ID, game.ID))
 			}
 		}
 	})
