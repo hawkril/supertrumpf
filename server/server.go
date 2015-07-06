@@ -13,8 +13,8 @@ import (
 	"time"
 
 	"github.com/go-martini/martini"
-	"github.com/martini-contrib/render"
 	"github.com/martini-contrib/cors"
+	"github.com/martini-contrib/render"
 
 	"trumpf-core/database"
 	"trumpf-core/events"
@@ -49,10 +49,10 @@ func main() {
 	m := martini.Classic()
 	m.Use(render.Renderer(render.Options{IndentXML: true, PrefixXML: []byte(xml.Header)}))
 
-    // only for development reason enable Access Control Allow Origin Header
-    m.Use(cors.Allow(&cors.Options{
-        AllowAllOrigins: true,
-    }))
+	// only for development reason enable Access Control Allow Origin Header
+	m.Use(cors.Allow(&cors.Options{
+		AllowAllOrigins: true,
+	}))
 
 	// Login handler
 	m.Get("/api/login/:user", func(p martini.Params, r render.Render) {
@@ -352,14 +352,6 @@ func main() {
 			return
 		}
 
-		lobby.Lock()
-		defer lobby.Unlock()
-		ps := make([]*players.Player, lobby.Players.Len())
-		i := 0
-		for p := lobby.Players.Front(); p != nil; p = p.Next() {
-			ps[i] = p.Value.(*players.Player)
-			i++
-		}
 		if lobby.Owner.ID == player.ID {
 			if game, err := trumpf.StartGame(lobby); err != nil {
 				r.XML(http.StatusBadRequest, events.New("lobby_not_started", "system", err))

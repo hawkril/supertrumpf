@@ -69,15 +69,11 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 		Players: ps,
 	}
 	s.ShufflePlayers()
-	for !addSession(s) {
-		s.ID = utils.GenerateID(32)
-	}
 
 	cards := utils.RandomShuffle(set.CardCount)
 
 	for len(cards) >= len(s.Players) {
 		for i, p := range s.Players {
-			// ToDo: Error handling
 			card, err := QueryCard(lobby.Set, cards[i])
 			if err != nil {
 				return nil, err
@@ -86,6 +82,12 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 		}
 		cards = cards[len(s.Players)-1:]
 	}
+
+	m.Lock()
+	for !addSession(s) {
+		s.ID = utils.GenerateID(32)
+	}
+	m.Unlock()
 
 	return s, nil
 }
@@ -231,6 +233,7 @@ func (this *session) getPlayer(playerID string) *Player {
 func (this *session) GetOwnCard(playerID string) *Card {
 	this.RLock()
 	defer this.RUnlock()
+
 	p := this.getPlayer(playerID)
 	if p == nil {
 		return nil
