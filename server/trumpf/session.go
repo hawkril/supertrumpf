@@ -79,6 +79,7 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 
 	log.Println("5")
 	for len(cards) >= len(s.Players) {
+		log.Printf("len(cards) = %d, len(players) = %d\n", len(cards), len(s.Players))
 		for i, p := range s.Players {
 			card, err := QueryCard(lobby.Set, cards[i])
 			if err != nil {
@@ -86,7 +87,7 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 			}
 			p.Deck.AddBack(card)
 		}
-		cards = cards[len(s.Players)-1:]
+		cards = cards[len(s.Players):]
 	}
 
 	log.Println("6")
