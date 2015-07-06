@@ -15,6 +15,27 @@ h1 {
     display: none;
 }
 
+.overlay {
+    position: fixed;
+    background-color: rgba(155, 155, 155, 0.9);
+    top: 30%;
+    left: 30%;
+    display: none;
+    width: 40%;
+    padding: 3% 5% 5% 5%;
+    border-radius: 8px;
+    border: 1px solid rgb(55,55,55);
+}
+
+.overlay .wrapper {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.overlay h2 {
+    color: white;
+}
+
 #content input, #content button {
     font-size: 25px;
     height: 45px;
@@ -44,7 +65,8 @@ h1 {
 }
 
 #toast {
-    display: table;
+    display: none;
+    /*display: table;*/
     position: fixed;
     /*top: 80%;*/
     bottom: 0px;
