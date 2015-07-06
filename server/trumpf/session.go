@@ -39,8 +39,8 @@ type playerCard struct {
 func (this *session) ShufflePlayers() {
 	var a, b int
 	for range this.Players {
-		a = utils.RandomInt(0, len(this.Players))
-		b = utils.RandomInt(0, len(this.Players))
+		a = utils.RandomInt(0, len(this.Players)-1)
+		b = utils.RandomInt(0, len(this.Players)-1)
 		if a == b {
 			continue
 		}

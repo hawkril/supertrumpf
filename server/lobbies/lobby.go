@@ -41,6 +41,7 @@ func NewLobby(owner *players.Player, name string, numPlayers int) *Lobby {
 		Owner:      owner,
 		Players:    list.New(),
 	}
+	lobby.Join(owner)
 	for !addLobby(lobby) {
 		lobby.ID = utils.GenerateID(32)
 	}
