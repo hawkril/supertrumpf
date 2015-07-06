@@ -357,6 +357,7 @@ func main() {
 				r.XML(http.StatusBadRequest, events.New("lobby_not_started", "system", err))
 			} else {
 				lobby.SendEvent(events.New("lobby_started", player.ID, game.ID))
+				r.XML(http.StatusOK, events.New("game_started", "system", game.ID))
 			}
 		}
 	})
