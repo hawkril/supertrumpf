@@ -6,7 +6,6 @@ import (
 	"trumpf-core/players"
 	"trumpf-core/utils"
 
-	"log"
 	"math"
 	"sync"
 )
@@ -52,13 +51,11 @@ func (this *session) ShufflePlayers() {
 
 // StartGame takes a lobby and converts it into a game session
 func StartGame(lobby *lobbies.Lobby) (*session, error) {
-	log.Println("1")
 	set, err := QuerySet(lobby.Set)
 	if err != nil {
 		return nil, err
 	}
 
-	log.Println("2")
 	ps := make([]*Player, lobby.Players.Len())
 	i := 0
 	for p := lobby.Players.Front(); p != nil; p = p.Next() {
@@ -67,19 +64,15 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 		i++
 	}
 
-	log.Println("3")
 	s := &session{
 		ID:      utils.GenerateID(32),
 		Players: ps,
 	}
 	s.ShufflePlayers()
 
-	log.Println("4")
 	cards := utils.RandomShuffle(set.CardCount)
 
-	log.Println("5")
 	for len(cards) >= len(s.Players) {
-		log.Printf("len(cards) = %d, len(players) = %d\n", len(cards), len(s.Players))
 		for i, p := range s.Players {
 			card, err := QueryCard(lobby.Set, cards[i])
 			if err != nil {
@@ -90,14 +83,12 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 		cards = cards[len(s.Players):]
 	}
 
-	log.Println("6")
 	m.Lock()
 	for !addSession(s) {
 		s.ID = utils.GenerateID(32)
 	}
 	m.Unlock()
 
-	log.Println("7")
 	return s, nil
 }
 
