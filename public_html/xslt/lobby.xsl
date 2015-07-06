@@ -94,7 +94,18 @@
 
     <xsl:template match="set">
         <xsl:variable name="name" select="@name" />
-        <option value="{$name}"><xsl:value-of select="title" /> (<xsl:value-of select="card_count" />)</option>       
+        <xsl:choose>
+            <xsl:when test="$name = //lobby/set/@name">
+                <option value="{$name}">
+                    <xsl:value-of select="title" /> (<xsl:value-of select="card_count" />)
+                </option>
+            </xsl:when>
+            <xsl:otherwise>
+                <option value="{$name}" selected>
+                    <xsl:value-of select="title" /> (<xsl:value-of select="card_count" />)
+                </option>
+            </xsl:otherwise>
+        </xsl:choose>    
     </xsl:template>
     
     <xsl:template match="//player">

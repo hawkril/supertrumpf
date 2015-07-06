@@ -117,6 +117,7 @@ function changeset() {
     });
     
     session.set = set;
+    session.updateCookie();
     // cache set
     $.get(apiurl + "set/" + set, function(data, status, xhr) { cache.set = xhr.responseText; });
 }
@@ -185,11 +186,14 @@ function newgame() {
         session.lobbyid = $(data).find("lobby > id").text();
         session.currentstate = "lobby";
         session.updateCookie();
-        
-        listener.subscribe(session.sessionid + "/lobby/" + session.lobbyid + "/events", refreshgame);
-        
-        changeset();
-        showlobby();        
+ 
+        // change set the first to be initialized
+        changeset();      
+
+        // show lobby and subscribe...
+        showlobby(true);  
+
+
     });
 }
 
@@ -246,7 +250,7 @@ function join(e) {
 }
 
 
-function showlobby() {
+function showlobby(subscribe) {
     $.get(apiurl + session.sessionid + "/lobby/" + session.lobbyid + "", function(data) {
         session.currentstate = "lobby";
         session.updateCookie();
@@ -254,6 +258,10 @@ function showlobby() {
         //console.log("Lobby: " + $(data).toXml());
         $("#content").xslt($(data).toXml(), cache.lobby, {"session": session.sessionid });
         ui.ready();
+
+        //if (subscribe === true)
+            //listener.subscribe(session.sessionid + "/lobby/" + session.lobbyid + "/events", refreshgame);
+
     });
 }
 
