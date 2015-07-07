@@ -29,7 +29,7 @@ type Lobby struct {
 	Owner        *players.Player `xml:"owner,omitempty"`
 	Set          string          `xml:"set"`
 	Players      *list.List      `xml:"-"`
-	playersSlice []string        `xml:"players>player"`
+	PlayersSlice []string        `xml:"players>player"`
 }
 
 // NewLobby creates a lobby and adds it to the lobby list
@@ -144,7 +144,7 @@ func (this *Lobby) generatePlayerSlice() {
 		ps = append(ps, player.Name)
 		player.RUnlock()
 	}
-	this.playersSlice = ps
+	this.PlayersSlice = ps
 }
 
 func AddLobby(lobby *Lobby) bool {

@@ -15,7 +15,6 @@ type Set struct {
 	Title      string         `xml:"title"`
 	CardCount  int            `xml:"card_count"`
 	MaxPlayers int            `xml:"max_players"`
-	CardPic    string         `xml:"card_pic"`
 	Properties []*PropertyDef `xml:"properties>property"`
 }
 

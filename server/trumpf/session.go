@@ -180,6 +180,9 @@ func (this *session) MakeMove(playerID string, property int) bool {
 		}
 		if w := this.HasWinner(); w != nil {
 			this.SendEvent(events.New("game_win", playerID, w.Player))
+		} else {
+			this.setNextPlayer()
+			this.SendEvent(events.New("game_next_player", "system", this.Players[this.NextPlayer]))
 		}
 	}
 	return true
@@ -195,6 +198,15 @@ func (this *session) HasWinner() (pl *Player) {
 		}
 	}
 	return
+}
+
+func (this *session) setNextPlayer() {
+	for {
+		this.NextPlayer = (this.NextPlayer + 1) % len(this.Players)
+		if !this.Players[this.NextPlayer].Lost() {
+			return
+		}
+	}
 }
 
 func (this *session) PlayerCards() []*playerCard {

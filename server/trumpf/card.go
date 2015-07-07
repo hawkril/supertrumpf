@@ -12,10 +12,11 @@ import (
 type Card struct {
 	XMLName xml.Name `xml:"card"`
 
-	Number int      `xml:"no"`
-	Title  string   `xml:"titel"`
-	Values []*Value `xml:"value"`
-	SetID  string   `xml:"set_id"`
+	Number     int      `xml:"no"`
+	Title      string   `xml:"titel"`
+	Values     []*Value `xml:"value"`
+	PictureSrc string   `xml:"card_pic"`
+	SetID      string   `xml:"set_id"`
 }
 
 type Value struct {
