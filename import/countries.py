@@ -104,7 +104,7 @@ def addcard(elem):
 		for x in xrange(0,no_values):
 			value = doc.createElement('value')
 			wcard.appendChild(value)
-			value.setAttribute('name', valueinfo[4*x])
+			value.setAttribute('id', valueinfo[4*x])
 		for date in data:
 			text = doc.createTextNode(date.childNodes[0].childNodes[0].data.encode('utf-8')) 
 			if date.attributes['name'].value == querytags[0]:
