@@ -17,9 +17,11 @@
                 <xsl:apply-templates />
             </div>
             <div id="footer">
-                <label for="gamename">Neues Spiel:</label> 
-                <input type="text" class="form-control" id="gamename" placeholder="Name deines Spiels" />
-                <button type="button" class="btn btn-success" id="newgame">Spiel erstellen</button>
+                <form id="newgame">
+                    <label for="gamename">Neues Spiel:</label> 
+                    <input type="text" class="form-control" id="gamename" placeholder="Name deines Spiels" />
+                    <button type="submit" class="btn btn-success">Spiel erstellen</button>
+                </form>
             </div>
         </div>
     </xsl:template>

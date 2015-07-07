@@ -101,7 +101,7 @@
                 </option>
             </xsl:when>
             <xsl:otherwise>
-                <option value="{$name}" selected>
+                <option selected="true" value="{$name}">
                     <xsl:value-of select="title" /> (<xsl:value-of select="card_count" />)
                 </option>
             </xsl:otherwise>
