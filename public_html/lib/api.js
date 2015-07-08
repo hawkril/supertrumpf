@@ -21,6 +21,7 @@ function Api(config) {
         $.get("xslt/lobbies.xsl", function(data, status, xhr) { me.cache.lobbies = xhr.responseText; });
         $.get("xslt/lobby.xsl", function(data, status, xhr) { me.cache.lobby = xhr.responseText; });
         $.get("xslt/card.xsl", function(data, status, xhr) { me.cache.card = xhr.responseText; });
+        $.get("xslt/message.xsl", function(data, status, xhr) { me.cache.message = xhr.responseText; });
 
         this.cache.login = "\
             <h1>SUPERTRUMPF</h1>\
@@ -164,11 +165,16 @@ function Api(config) {
     };
 
     this._handleGamestarted = function(id, lobby) {
+        var me = this;
         if (this.lobby)
             this.lobby = null;
 
         this.game = new Game(this.session, this.config, this.content, this.cache);
         this.game.start(id, lobby);
+        this.game
+            .failed(function() { me.showLobbies(); })
+            .finished(function() { me.showLobbies(); })
+            .unauthorized(function() { me.showLogin(); });
     };
 
     this.leaveLobby = function() {

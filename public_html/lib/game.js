@@ -16,9 +16,16 @@ function Game(session, config, node, cache) {
     this.finishedCallback = null;
     this.unauthorizedCallback = null;
     this.failedCallback = null;
-    
-    var me = this;    
-    
+    this.toast = new Toast($("body"));
+
+    var me = this;
+
+    $(this.node).append("<div class='container'></div>");
+    $(this.node).append("<div class='message'></div>");
+
+    //this.message = $(this.node).find(".message");
+    //this.container = $(this.node).find(".container");
+
     $(this.node).on("click", ".property", function(e) {
        var choise = $(e.currentTarget).index();
        me.move(choise);
@@ -62,23 +69,72 @@ function Game(session, config, node, cache) {
 
         switch (type) {
 
+
+            case "game_not_found":
+                if (this.failedCallback)
+                    this.failedCallback();
+
+                this._destroy();
+                return false;
+
+            case "login_required":
+                if (this.unauthorizedCallback)
+                    this.unauthorizedCallback();
+
+                this._destroy();
+                return false;
+
+            case "game_invalid_move":
+                this.refresh();
+                return true;
+
+
             case "game_next_player":
                 this.active = (payload == this.session.id);
                 this.refresh();
+                return true;
+
+            case "game_move":
+                //this._drawMessage(data);
+                //this.toast.show
+                return true;
+
+            case "game_round_win":
+                var id = $(data).find("payload > id").text();
+                var player = $(data).find("payload > name").text();
+                if (id == this.session.id)
+                    this.toast.show("Du hast diese Runde gewonnen!");
+                else
+                    this.toast.show(player + " hat diese Runde gewonnen");
+                return true;    
+
+            case "game_loose":
+                if (payload == this.session.id)
+                    this.toast.show("DU HAST DAS SPIEL VERLOREN!");
+                else
+                    this.toast.show("Ein Spieler ist ausgeschieden");
+
+                if (this.finishedCallback)
+                    this.finishedCallback();
+
+                this._destroy();
+                return false;
+
+            case "game_win":
+                if (payload == this.session.id)
+                    this.toast.show("DU HAST DAS SPIEL GEWONNEN!");
+                else
+                    this.toast.show("Das Spiel ist zu Ende, du hast leider nicht gewonnen!");
+
+                if (this.finishedCallback)
+                    this.finishedCallback();
+
+                this._destroy();
+                return false;
+
 
             case "num_invalid":
-                this.refresh();
-                return true;
-
             case "game_move_complete":
-
-                this.refresh();
-                return true;
-
-            case "game_invalid_move":
-
-                return true;
-
             default:
                 //just refresh
                 this.refresh();
@@ -112,10 +168,22 @@ function Game(session, config, node, cache) {
             this.node = node;
 
         var xml = $(this.data).find("card").append(this.definition).toXml();
-        console.log(xml);
+        //console.log(xml);
         var style = this.cache.card;
         $(this.node).xslt(xml, style, {"active" : (this.active ? "active" : "")});
     };
+
+    this._drawMessage = function(data) {
+        var me = this;
+
+        var xml = $(data).toXml;
+
+        var style = this.cache.message;
+
+        $(this.message).xslt(xml, style);
+
+        setTimeout(function() { $(me.message).fadeOut(); }, 4000); 
+    }
 
     this._destroy = function() {
 
