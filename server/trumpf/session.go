@@ -173,20 +173,36 @@ func (this *session) MakeMove(playerID string, property int) bool {
 			continue
 		}
 		playerVal := card.Values[property].FloatContent()
-		if playerVal == currentValue {
-			tie = true
-		} else if playerVal > currentValue {
-			currentValue = playerVal
-			currentPlayer = i
-			tie = false
+		if bigger {
+			if playerVal == currentValue {
+				tie = true
+			} else if playerVal > currentValue {
+				currentValue = playerVal
+				currentPlayer = i
+				tie = false
+			}
+		} else {
+			if playerVal == currentValue {
+				tie = true
+			} else if playerVal < currentValue {
+				currentValue = playerVal
+				currentPlayer = i
+				tie = false
+			}
+
 		}
 	}
 
 	this.SendEvent(events.New("game_round_win", "system", this.Players[currentPlayer].Player))
 
 	if tie {
+		for _, p := range this.Players {
+			if p.Lost() {
+				continue
+			}
+			p.Deck.RemoveFront()
+		}
 		this.SendEvent(events.New("tie", playerID, nil))
-		// ToDo
 	} else {
 		for _, p := range this.Players {
 			if p.Lost() {
