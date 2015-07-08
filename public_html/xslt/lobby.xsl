@@ -80,7 +80,7 @@
                 </div>
                 <div id="footer">
                     <button type="button" class="btn btn-lg btn-warning" id="leavegame">Spiel verlassen</button>
-                    <xsl:if test="$session = //lobby/owner/id">
+                    <xsl:if test="$session = //lobby/owner/id and count(//lobby/players/player) > 1">
                         <button type="button" class="btn btn-lg btn-success" id="startgame">Spiel starten</button>
                     </xsl:if>
                 </div>

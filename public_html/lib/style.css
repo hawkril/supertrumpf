@@ -264,8 +264,7 @@ h1 {
 }
 
 .cardimage img {
-    max-width: 80%;
-    max-height: 40%;
+    width: 80%;
 }
 
 .cardtitle h1 {

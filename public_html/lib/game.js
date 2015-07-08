@@ -20,7 +20,7 @@ function Game(session, config, node, cache) {
     var me = this;    
     
     $(this.node).on("click", ".property", function(e) {
-       var choise = $(e.currentTarget).position();
+       var choise = $(e.currentTarget).index();
        me.move(choise);
     });
 
@@ -44,18 +44,14 @@ function Game(session, config, node, cache) {
 
         this.updateCookie({"id": id, "name": lobby.name, "set": lobby.set});
 
-        this.listener.subscribe(this.session.id + "/game/" + this.id + "/events")
-            .done(function(data, status) {
-                return me._handleevent(data);
-            });
-
         $.get(this.config.apiurl + "set/" + this.set, function(data, status, xhr) { 
             me.definition = $(data).find("set");
+        });
 
-            //me.move(1);
-            me.refresh();
-        });    
-
+        this.listener.subscribe(this.session.id + "/game/" + this.id + "/events")
+        .done(function(data, status) {
+            return me._handleevent(data);
+        });
     };
 
     this._handleevent = function(data) {
@@ -65,6 +61,10 @@ function Game(session, config, node, cache) {
         var payload = $(data).find("event > payload").text();
 
         switch (type) {
+
+            case "game_next_player":
+                this.active = (payload == this.session.id);
+                this.refresh();
 
             case "num_invalid":
                 this.refresh();
@@ -98,7 +98,7 @@ function Game(session, config, node, cache) {
 
     this.refresh = function() {
         var me = this;
-        $.get(this.config.apiurl + "card/" + this.set + "/" + this.card, function(data, status, xhr) {
+        $.get(this.config.apiurl + this.session.id + "/game/" + this.id + "/card", function(data, status, xhr) {
             me._draw(data);
         });
     };
@@ -114,7 +114,7 @@ function Game(session, config, node, cache) {
         var xml = $(this.data).find("card").append(this.definition).toXml();
         console.log(xml);
         var style = this.cache.card;
-        $(this.node).xslt(xml, style, {"active" : (this.active ? "active" : ""), "name" : ""});
+        $(this.node).xslt(xml, style, {"active" : (this.active ? "active" : "")});
     };
 
     this._destroy = function() {
