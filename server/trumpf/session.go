@@ -97,8 +97,9 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 	}
 	m.Unlock()
 
-	// Remove the lobby from the lobbies list
-	lobbies.RemoveLobby(lobby.ID)
+	lobby.Lock()
+	lobby.IsStarted = true
+	lobby.Unlock()
 
 	return s, nil
 }

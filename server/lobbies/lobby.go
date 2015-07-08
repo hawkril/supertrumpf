@@ -30,6 +30,7 @@ type Lobby struct {
 	Set          string          `xml:"set"`
 	Players      *list.List      `xml:"-"`
 	PlayersSlice []string        `xml:"players>player"`
+	IsStarted    bool            `xml:"isStarted"`
 }
 
 // NewLobby creates a lobby and adds it to the lobby list
@@ -177,7 +178,13 @@ func GetLobbies() []*Lobby {
 
 func getLobbies() []*Lobby {
 	keys := make([]string, 0, len(l))
-	for k := range l {
+	for k, lob := range l {
+		lob.RLock()
+		st := lob.IsStarted
+		lob.RUnlock()
+		if st {
+			continue
+		}
 		keys = append(keys, k)
 	}
 	sort.Strings(keys)
