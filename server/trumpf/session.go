@@ -74,6 +74,7 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 	s.ShufflePlayers()
 
 	cards := utils.RandomShuffle(set.CardCount)
+	n := 0
 
 	for len(cards) >= len(s.Players) {
 		for i, p := range s.Players {
@@ -86,6 +87,10 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 
 		}
 		cards = cards[len(s.Players):]
+		n++
+		if n > 8 {
+			break
+		}
 	}
 
 	s.NextPlayer = s.Players[0].Player.ID
