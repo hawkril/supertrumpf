@@ -188,8 +188,10 @@ func (this *session) MakeMove(playerID string, property int) bool {
 		}
 		if w := this.HasWinner(); w != nil {
 			this.SendEvent(events.New("game_win", playerID, w.Player))
+			this.NextPlayer = ""
 		} else {
 			this.setNextPlayer()
+			this.SendEvent(events.New("game_next_player", "system", this.NextPlayer))
 		}
 	}
 	return true
