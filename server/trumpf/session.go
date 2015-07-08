@@ -173,7 +173,7 @@ func (this *session) MakeMove(playerID string, property int) bool {
 		}
 	}
 
-	this.SendEvent(events.New("game_round_win", "system", this.Players[currentPlayer].Player.ID))
+	this.SendEvent(events.New("game_round_win", "system", this.Players[currentPlayer].Player))
 
 	if tie {
 		this.SendEvent(events.New("tie", playerID, nil))
