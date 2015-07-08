@@ -15,11 +15,6 @@ h1 {
     display: none;
 }
 
-.property {
-    height: 30px;
-    width: 200px;
-    background-color: white;
-}
 
 .overlay {
     position: fixed;
@@ -42,10 +37,22 @@ h1 {
     color: white;
 }
 
-#content input, #content button {
+.lobbies input,
+.lobbies button,
+#loginbox input,
+#loginbox button {
     font-size: 25px;
     height: 45px;
     margin: 10px 0 0 0;
+}
+
+#numplayers,
+#changenum button {
+    margin: 0px;
+}
+
+.overlay span {
+    color: white;
 }
 
 .content {
@@ -211,8 +218,14 @@ h1 {
     width: 50%;
 }
 
-#startgame {
+#newgame > button {
     float: right;
+}
+
+#newgame > label {
+    float: left;
+    margin-top: 4px;
+    margin-right: 15px;
 }
 
 .lobby #footer button {
