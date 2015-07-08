@@ -78,7 +78,7 @@ h1 {
 }
 
 .toast {
-    display: none;
+    /*display: none;*/
     /*display: table;*/
     position: fixed;
     top: 40%;

@@ -13,7 +13,7 @@ function Toast(node) {
 	            clearTimeout(this.toastTimer);
 		
 		$("#toast-" + this.id).stop(true, true);
-		$("#message-" + this.id).html(message);
+		$("#message-" + this.id).text(message);
 		$("#toast-" + this.id).fadeIn(200);
 		this.toastTimer = setTimeout(function() {
 			$("#toast-" + me.id).fadeOut(2000);
