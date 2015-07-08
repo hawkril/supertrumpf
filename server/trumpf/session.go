@@ -261,6 +261,9 @@ func (this *session) GetOwnCard(playerID string) *Card {
 	if err != nil || card == nil {
 		return nil
 	}
+
+	log.Printf("Own card for player %s is %s\n", p.Player.Name, card.Title)
+
 	return card
 }
 
