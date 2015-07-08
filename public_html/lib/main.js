@@ -1,6 +1,5 @@
 var session = null;
 var ui = null;
-var game = 
 
 $(document).ready(function() {   
     

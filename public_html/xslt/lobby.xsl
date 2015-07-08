@@ -68,12 +68,13 @@
                                 </div>
                             </xsl:when>
                             <xsl:otherwise>
-                                <span><xsl:value-of select="//lobby/set/title" /> (<xsl:value-of select="//lobby/set/card_count" /> Karten)</span>
+                                <xsl:variable name="set" select="//lobby/set/text()" />
+                                <span><xsl:value-of select="//sets/set[@name = $set]/title" /> (<xsl:value-of select="//sets/set[@name = $set]/card_count" /> Karten)</span>
                             </xsl:otherwise>
                         </xsl:choose>
                     </div>
                     <div id="players">
-                        <xsl:apply-templates select="players" />
+                        <xsl:apply-templates select="//lobby/players" />
                     </div>
                 </div>
                 <div id="footer">
@@ -95,21 +96,21 @@
     <xsl:template match="set">
         <xsl:variable name="name" select="@name" />
         <xsl:choose>
-            <xsl:when test="$name = //lobby/set/@name">
-                <option value="{$name}">
+            <xsl:when test="$name = //lobby/set/text()">
+                <option selected="selected" value="{$name}">
                     <xsl:value-of select="title" /> (<xsl:value-of select="card_count" />)
                 </option>
             </xsl:when>
             <xsl:otherwise>
-                <option selected="true" value="{$name}">
+                <option value="{$name}">
                     <xsl:value-of select="title" /> (<xsl:value-of select="card_count" />)
                 </option>
             </xsl:otherwise>
         </xsl:choose>    
     </xsl:template>
     
-    <xsl:template match="//player">
-        <div class="player"><xsl:value-of select="name" /></div>
+    <xsl:template match="player">
+        <div class="player"><xsl:value-of select="text()" /></div>
     </xsl:template>
 
 

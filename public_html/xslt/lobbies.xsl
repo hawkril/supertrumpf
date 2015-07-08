@@ -27,13 +27,17 @@
     </xsl:template>
     
     <xsl:template match="lobby">
-        <xsl:variable name="lobbyid"><xsl:value-of select="id"/></xsl:variable>
+        <xsl:variable name="lobbyid" select="id" />
+        <xsl:variable name="setname" select="set" />
         
         <div class="lobby" id="{$lobbyid}">
             <div class="lobby_name"><xsl:value-of select="name" /></div>
             <div class="lobby_owner">Spiel von: <xsl:value-of select="owner/name" /></div>
-            <div class="lobby_num_players">Max. Spieler: <xsl:value-of select="numPlayers" /></div>
-            <div class="set">Kartenset: Zahlen (32 Karten)</div>
+            <div class="lobby_num_players">Spieler: <xsl:value-of select="count(players/player)" />/<xsl:value-of select="numPlayers" /></div>
+            <div class="set">Karten: 
+                <xsl:value-of select="//sets/set[@name = $setname]/title" /> 
+                (<xsl:value-of select="//sets/set[@name = $setname]/card_count" /> Karten)
+            </div>
         </div>
     </xsl:template>
     

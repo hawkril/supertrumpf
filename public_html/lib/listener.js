@@ -1,35 +1,54 @@
-function Listener() {
-    this.pollUrl = null;
-    this.pollTimer = null;
-    this.pollCallback = null;
-    
-    this.subscribe = function(url, callback) {
-        this.pollUrl = url;
-        this.pollCallback = callback;
+function Listener(config) {
+    this.config = config;
+    this.pollurl = null;
+    this.polltimer = null;
+    this.response = null;
+
+    this.subscribe = function(url) {
         var me = this;
-        this.pollTimer = setTimeout(function() { me.poll(); }, config.POLL_TIMEOUT);
-        this.poll();
+        this.response = new Response();
+
+        this.pollurl = url;
+        setTimeout(function() { me.poll(); }, this.config.minpolldelay);
+        return this.response;
     };
 
     this.poll = function() {
         var me = this;
 
-        if (!me.pollUrl)
+        if (!me.pollurl)
             return;
 
-        // poll with http-idle
-        $.get(config.APIURL + me.pollUrl, function(data, status, xhr) {
-            // something happend call callback
-            if (me.pollCallback)
-                me.pollCallback($.parseXML(data));
+        clearTimeout(this.polltimer);
+        this.polltimer = setTimeout(function() { me.poll(); }, me.config.polltimeout + me.config.polldelay)
 
-            // reset timeout
-            clearTimeout(me.pollTimer);
-            me.pollTimer = setTimeout(function() { me.poll(); }, config.POLL_TIMEOUT);
+        var start = (new Date()).getTime();
+        // poll with http-idle
+        $.get(this.config.apiurl + me.pollurl).always(function(data, status, xhr) {
+            if (!me.response)
+                return;
+
+            var resume = me.response.executeDone(data, xhr.status);
+            if (!resume)
+                return;
+
+                
+
+            var end = (new Date()).getTime();
+            var duration = end - start;
+
+            if (duration < me.config.minpolldelay)
+                setTimeout(function() { me.poll(); }, me.config.minpolldelay);
+            else
+                me.poll();
+
         });
     };
 
     this.unsubscribe = function() {
-	   clearTimeout(this.pollTimer);
+        this.response = null;
+        this.pollurl = null;
+	    clearTimeout(this.polltimer);
+        this.polltimer = null;
     };
 };

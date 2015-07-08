@@ -1,50 +1,35 @@
 function Session() {
     this.state = 'login';
     this.user = null;
-    this.session = null;
-    this.lobby = null;
-    this.set = null;
+    this.id = null;
 
+
+    this.signedIn = function() {
+        return this.user !== "" && this.session !== "";
+    }
 
     this.updateCookie = function(obj) {
         if (obj) {
-            if (!obj.user)
-                this.user = obj.user;
-            
-            if (!obj.state)
-                this.state = obj.state;
-            
-            if (!obj.session)
-                this.session = obj.session;
-            
-            if (!obj.lobby)
-                this.lobby = obj.lobby;
-            
-            if (!obj.set)
-                this.set = obj.set;
+            if (obj.user)    this.user      = obj.user;
+            if (obj.state)   this.state     = obj.state; 
+            if (obj.id)      this.id        = obj.id;
         }
         
-        document.cookie = "user=" + this.user;
-        document.cookie = "session=" + this.session;
-        document.cookie = "lobby=" + this.lobby;
-        document.cookie = "state=" + this.state;
-        document.cookie = "set=" + this.set;
-    };
+        document.cookie = "session.user="   + this.user;
+        document.cookie = "session.state="  + this.state;
+        document.cookie = "session.id="     + this.id;
+    }
 
     this.clearCookie = function() {
-        document.cookie = "user=";
-        document.cookie = "session=";
-        document.cookie = "lobby=";
-        document.cookie = "state=";
-        document.cookie = "set=";
+        document.cookie = "session.user=";
+        document.cookie = "session.state=";
+        document.cookie = "session.id=";
     };
 
     this.restore = function() {
-        this.session = this.getCookie("session");
-        this.user = this.getCookie("user");
-        this.lobby = this.getCookie("lobby");
-        this.state = this.getCookie("state");
-        this.set = this.getCookie("set");
+        this.user   = this.getCookie("session.user");
+        this.state  = this.getCookie("session.state");
+        this.id     = this.getCookie("session.id");
     };
 
     this.getCookie = function(name) {
