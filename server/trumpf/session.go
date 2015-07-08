@@ -6,6 +6,7 @@ import (
 	"trumpf-core/players"
 	"trumpf-core/utils"
 
+	"log"
 	"math"
 	"sync"
 )
@@ -78,7 +79,9 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 			if err != nil {
 				return nil, err
 			}
+			log.Printf("%s got %s\n", p.Player.Name, card.Title)
 			p.Deck.AddBack(card)
+
 		}
 		cards = cards[len(s.Players):]
 	}
