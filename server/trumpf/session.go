@@ -159,9 +159,9 @@ func (this *session) MakeMove(playerID string, property int) bool {
 	currentPlayer := -1
 	tie := false
 	if bigger {
-		currentValue = math.Inf(1)
-	} else {
 		currentValue = math.Inf(-1)
+	} else {
+		currentValue = math.Inf(1)
 	}
 	for i, p := range this.Players {
 		if p.Lost() {
