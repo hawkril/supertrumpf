@@ -19,10 +19,11 @@ var (
 type session struct {
 	sync.RWMutex
 
-	ID         string    `xml:"id"`
-	Players    []*Player `xml:"players"`
-	NextPlayer int       `xml:"nextPlayer"`
-	Set        *Set      `xml:"set"`
+	ID            string    `xml:"id"`
+	Players       []*Player `xml:"players"`
+	nextPlayerNum int       `xml:"-"`
+	NextPlayer    string    `xml:"nextPlayer"`
+	Set           *Set      `xml:"set"`
 }
 
 type move struct {
@@ -86,6 +87,8 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 		cards = cards[len(s.Players):]
 	}
 
+	s.NextPlayer = s.Players[0].Player.ID
+
 	m.Lock()
 	for !addSession(s) {
 		s.ID = utils.GenerateID(32)
@@ -122,7 +125,7 @@ func (this *session) MakeMove(playerID string, property int) bool {
 	defer this.Unlock()
 
 	// Is the player the next one to play?
-	if this.Players[this.NextPlayer].Player.ID != playerID {
+	if this.NextPlayer != playerID {
 		return false
 	}
 
@@ -185,7 +188,7 @@ func (this *session) MakeMove(playerID string, property int) bool {
 			this.SendEvent(events.New("game_win", playerID, w.Player))
 		} else {
 			this.setNextPlayer()
-			this.SendEvent(events.New("game_next_player", "system", this.Players[this.NextPlayer]))
+			this.SendEvent(events.New("game_next_player", "system", this.NextPlayer))
 		}
 	}
 	return true
@@ -205,8 +208,9 @@ func (this *session) HasWinner() (pl *Player) {
 
 func (this *session) setNextPlayer() {
 	for {
-		this.NextPlayer = (this.NextPlayer + 1) % len(this.Players)
-		if !this.Players[this.NextPlayer].Lost() {
+		this.nextPlayerNum = (this.nextPlayerNum + 1) % len(this.Players)
+		if !this.Players[this.nextPlayerNum].Lost() {
+			this.NextPlayer = this.Players[this.nextPlayerNum].Player.ID
 			return
 		}
 	}
