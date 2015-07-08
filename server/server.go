@@ -433,6 +433,35 @@ func main() {
 		}
 	})
 
+	m.Get("/api/:session/game/:game/card", func(p martini.Params, r render.Render) {
+		sessionID := p["session"]
+		gameID := p["game"]
+
+		player := players.GetPlayer(sessionID)
+		if player == nil {
+			r.XML(http.StatusUnauthorized, events.New("login_required", "system", nil))
+			return
+		}
+
+		game := trumpf.GetSession(gameID)
+		if game == nil {
+			r.XML(http.StatusNotFound, events.New("game_not_found", "system", nil))
+			return
+		}
+
+		if !game.HasPlayer(sessionID) {
+			r.XML(http.StatusUnauthorized, events.New("game_not_joined", "system", nil))
+			return
+		}
+
+		card := game.GetOwnCard(player.ID)
+		if card != nil {
+			r.XML(http.StatusOK, events.New("game_own_card", "system", card))
+		} else {
+			r.XML(http.StatusNotFound, events.New("game_card_not_found", "system", nil))
+		}
+	})
+
 	// Query all sets
 	m.Get("/api/sets", func(p martini.Params, r render.Render) {
 		sets, err := trumpf.QueryAllSets()

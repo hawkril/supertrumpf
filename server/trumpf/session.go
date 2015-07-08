@@ -88,6 +88,7 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 	}
 
 	s.NextPlayer = s.Players[0].Player.ID
+	s.SendEvent(events.New("game_next_player", "system", s.NextPlayer))
 
 	m.Lock()
 	for !addSession(s) {
@@ -188,7 +189,6 @@ func (this *session) MakeMove(playerID string, property int) bool {
 			this.SendEvent(events.New("game_win", playerID, w.Player))
 		} else {
 			this.setNextPlayer()
-			this.SendEvent(events.New("game_next_player", "system", this.NextPlayer))
 		}
 	}
 	return true
