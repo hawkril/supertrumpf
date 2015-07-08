@@ -173,8 +173,8 @@ func (this *session) MakeMove(playerID string, property int) bool {
 		events.New("tie", playerID, nil)
 		// ToDo
 	} else {
-		for i, p := range this.Players {
-			if i == currentPlayer || p.Lost() {
+		for _, p := range this.Players {
+			if p.Lost() {
 				continue
 			}
 			card, err := p.Deck.RemoveFront()
