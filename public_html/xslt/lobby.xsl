@@ -15,8 +15,7 @@
         <xsl:variable name="numPlayers"><xsl:value-of select="//lobby/numPlayers"/></xsl:variable>
         <xsl:variable name="lobbyname"><xsl:value-of select="//lobby/name"/></xsl:variable>
         
-        <div id="lobby" class="contentregion">
-            <div id="mainbox">
+            <div class="mainbox lobby">
                 <div id="header">Warte auf weitere Spieler...</div>
                 <div id="main">
                     <div>
@@ -73,18 +72,19 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </div>
+                    <label>Spieler:</label>
                     <div id="players">
+                        
                         <xsl:apply-templates select="//lobby/players" />
                     </div>
                 </div>
                 <div id="footer">
-                    <button type="button" class="btn btn-warning" id="leavegame">Spiel verlassen</button>
+                    <button type="button" class="btn btn-lg btn-warning" id="leavegame">Spiel verlassen</button>
                     <xsl:if test="$session = //lobby/owner/id">
-                        <button type="button" class="btn btn-success" id="startgame">Spiel starten</button>
+                        <button type="button" class="btn btn-lg btn-success" id="startgame">Spiel starten</button>
                     </xsl:if>
                 </div>
             </div>
-        </div>
     </xsl:template>
     
     <xsl:template match="//sets">

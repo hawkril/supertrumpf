@@ -9,6 +9,8 @@ function Api(config) {
     this.session = null;
     this.lobby = null;
     this.game = null;
+    
+    this.intervall = null;
 
     //this.toast = new Toast($("body"));
     this.cache = new Object();
@@ -28,6 +30,19 @@ function Api(config) {
                     <input type='text' class='form-control' id='username' placeholder='Spielername'>\
                     <button type='submit' class='btn btn-success'>LOS</button>\
                 </form>\
+            </div>";
+        
+        this.cache.staticlobbies = " \
+            <div class='mainbox lobbies'>\
+                <div id='header'>Wähle ein Spiel aus...</div>\
+                <div id='main'></div>\
+                <div id='footer'>\
+                    <form id='newgame'>\
+                        <label for='gamename'>Neues Spiel:</label> \
+                        <input type='text' class='form-control' id='gamename' placeholder='Name deines Spiels' />\
+                        <button type='submit' class='btn btn-success'>Spiel erstellen</button>\
+                    </form>\
+                </div>\
             </div>";
 
         // cache available card sets as unparsed xml file
@@ -49,7 +64,7 @@ function Api(config) {
             
         this.wait = $(this.config.node).find(".wait")[0];
 
-    }
+    };
     
     
     this.showLogin = function() {
@@ -81,12 +96,20 @@ function Api(config) {
     
     this.showLobbies = function() {
         var me = this;
-        // get lobby
+        $(this.content).html(this.cache.staticlobbies);
+        this.refresh();
+        
+        this.intervall = setInterval(function() { me.refresh(); }, 5000);
+
+    };
+    
+    this.refresh = function() {
+        var me = this;
         $.get(this.config.apiurl + this.session.id + "/lobbies", function(data, status, xhr) {
             // use xslt to convert soap message to page and display it in content area
             var xml = $(data).find("event").append(me.cache.sets).toXml();
             var style = me.cache.lobbies;
-            $(me.content).xslt(xml, style);
+            $("#main").xslt(xml, style);
 
             me.session.updateCookie({"state": "lobbies"});
         });
@@ -104,6 +127,7 @@ function Api(config) {
 
     this._prepareLobby = function() {
         var me = this;
+        clearInterval(this.intervall);
 
         // first leave old lobby
         if (this.lobby)
@@ -113,8 +137,8 @@ function Api(config) {
         this.lobby
             .unauthorized(function() { me._handleUnauthorized(); })
             .gamestarted(function(id, lobby) { me._handleGamestarted(id, lobby); })
-            .leaved(function() { me._handleLeaved() })
-            .full(function() { me._handleFull() });
+            .leaved(function() { me._handleLeaved(); })
+            .full(function() { me._handleFull(); });
     };
 
 
@@ -145,7 +169,7 @@ function Api(config) {
 
         this.game = new Game(this.session, this.config, this.content, this.cache);
         this.game.start(id, lobby);
-    }
+    };
 
     this.leaveLobby = function() {
         var me = this;

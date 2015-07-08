@@ -9,28 +9,12 @@
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:s="http://www.w3.org/2003/05/soap-envelope" version="1.0">
-    
-    <xsl:template match="/">
-        <div id="mainbox" class="lobbies">
-            <div id="header">Wähle ein Spiel aus...</div>
-            <div id="main">
-                <xsl:apply-templates />
-            </div>
-            <div id="footer">
-                <form id="newgame">
-                    <label for="gamename">Neues Spiel:</label> 
-                    <input type="text" class="form-control" id="gamename" placeholder="Name deines Spiels" />
-                    <button type="submit" class="btn btn-success">Spiel erstellen</button>
-                </form>
-            </div>
-        </div>
-    </xsl:template>
-    
-    <xsl:template match="lobby">
+        
+    <xsl:template match="//lobby">
         <xsl:variable name="lobbyid" select="id" />
         <xsl:variable name="setname" select="set" />
         
-        <div class="lobby" id="{$lobbyid}">
+        <div class="lobby-item" id="{$lobbyid}">
             <div class="lobby_name"><xsl:value-of select="name" /></div>
             <div class="lobby_owner">Spiel von: <xsl:value-of select="owner/name" /></div>
             <div class="lobby_num_players">Spieler: <xsl:value-of select="count(players/player)" />/<xsl:value-of select="numPlayers" /></div>

@@ -15,6 +15,12 @@ h1 {
     display: none;
 }
 
+.property {
+    height: 30px;
+    width: 200px;
+    background-color: white;
+}
+
 .overlay {
     position: fixed;
     background-color: rgba(155, 155, 155, 0.9);
@@ -42,7 +48,7 @@ h1 {
     margin: 10px 0 0 0;
 }
 
-#content {
+.content {
     display: none;
     height: 100%;
     max-width: 800px;
@@ -117,7 +123,7 @@ h1 {
     float: left;
 }
 
-#loginbox > button, 
+#loginbox button, 
 #footer > button {
     float: right;
 }
@@ -137,7 +143,7 @@ h1 {
     width: calc(100% - 172px);
 }
 
-#mainbox {
+.mainbox {
     min-height: 430px;
     height: 100%;
     background: linear-gradient(rgba(255,255,255,0.95), rgba(221,221,221,0.95));
@@ -149,7 +155,7 @@ h1 {
     box-shadow: 0 0 20px rgba(81, 203, 238, 1);
 }
 
-#mainbox:after {
+.mainbox:after {
     content: ".";
     clear: both;
     display: block;
@@ -174,21 +180,34 @@ h1 {
     width: 100%;
 }
 
-#lobby {
+.lobby #main {
+    height: calc(100% - 135px);
+}
+
+
+
+.lobby {
     text-align: left;
 }
 
-#lobby label {
+.lobby label {
     width: 30%;
+    
 }
 
-#lobby input, 
-#lobby button {
+.lobby input, 
+.lobby button {
     display: inline-block;
-    margin: 0 10px 0 0;
+    margin: 0 30% 0 0;
+    float: right;
 }
 
-#lobby input[type="text"] {
+.lobby select {
+    display: inline-block;
+    width: 100%;
+}
+
+.lobby input[type="text"] {
     width: 50%;
 }
 
@@ -196,7 +215,11 @@ h1 {
     float: right;
 }
 
-.lobby {
+.lobby #footer button {
+    margin: 10px;
+}
+
+.lobby-item {
     width: 98%;
     margin: 10px auto;
     height: 50px;
@@ -208,10 +231,102 @@ h1 {
     overflow: hidden;
 }
 
-.lobby:hover {
+.player {
+    width: 48%;
+    margin: 5px 1%;
+    float: left;
+    height: 40px;
+    text-align: center;
+    border: 1px solid rgb(200,200,200);
+    border-radius: 8px;
+    background: linear-gradient(rgb(255,255,255), rgb(240,240,240));
+    overflow: hidden;
+    color: #695;
+}
+
+.cardimage {
+    text-align: center;
+    height: 40%;
+    margin: auto;
+}
+
+.cardimage img {
+    max-width: 80%;
+    max-height: 40%;
+}
+
+.cardtitle h1 {
+    display: block;
+}
+
+.cardproperties {
+    margin-top: 15px;
+}
+
+.property {
+    width: 100%;
+    margin: 5px 0px;
+    float: left;
+    height: 40px;
+    text-align: center;
+    border: 1px solid rgb(200,200,200);
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgb(240,240,240);
+    color: darkgray;
+}
+
+.cardpage {
+    display: table;
+}
+
+.card {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.active .property {
+    cursor: pointer;
+    background: linear-gradient(rgb(255,255,255), rgb(240,240,240));
+    color: #b92c28;
+}
+
+.active .property:hover {
     background: linear-gradient(rgb(240,240,240), rgb(255,255,255));
 }
-.lobby > div {
+
+.propertyname {
+    display: inline-block;
+    float: left;
+    text-align: left;
+    margin-left: 10px;
+    
+}
+
+.propertyvalue {
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+}
+
+.propertysuffix {
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+}
+
+#players {
+}
+
+#chooseset {
+    display: inline-block;
+    width: 40%;
+}
+
+.lobby-item:hover {
+    background: linear-gradient(rgb(240,240,240), rgb(255,255,255));
+}
+.lobby-item > div {
     font-size: 15px;
     margin: 12px 0px;
     width: 150px;
@@ -219,14 +334,14 @@ h1 {
     color: rgb(150,150,150);
 }
 
-.lobby .lobby_name {
+.lobby-item .lobby_name {
     color: green;
     margin: 5px 10px;
     font-size: 25px;
     width: 200px;
 } 
 
-.lobby .set {
+.lobby-item .set {
     width: 200px;
 }
 
@@ -241,11 +356,11 @@ h1 {
     margin: 0 0 0 10px;
 }
 
-#lobby label {
+.lobby label {
     font-weight: normal;
     display: inline-block;
 }
 
-#lobby main {
+.lobby main {
     padding: 10px;
 }

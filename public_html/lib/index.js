@@ -37,15 +37,15 @@ $(document).on("submit", "#login", function(e) {
 });
 
 $(document).on("submit", "#newgame", function(e) {
-	e.preventDefault();
+    e.preventDefault();
     var name = $("#gamename").val();
 	if (!name)
 	    return;
 
-	api.createLobby(name);
+    api.createLobby(name);
 });
 
-$(document).on("click", ".lobby", function(e) {
+$(document).on("click", ".lobby-item", function(e) {
     if (!e)
     	return;
     

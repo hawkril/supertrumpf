@@ -9,13 +9,20 @@ function Game(session, config, node, cache) {
     this.set = null;
     this.definition = null;
     this.card = 0;
-    this.active = true;
+    this.active = false;
 
     this.listener = new Listener(config);
 
     this.finishedCallback = null;
     this.unauthorizedCallback = null;
     this.failedCallback = null;
+    
+    var me = this;    
+    
+    $(this.node).on("click", ".property", function(e) {
+       var choise = $(e.currentTarget).position();
+       me.move(choise);
+    });
 
     this.finished = function(callback) {
         this.finishedCallback = callback;
@@ -30,8 +37,8 @@ function Game(session, config, node, cache) {
     this.failed = function(callback) {
         this.failedCallback = callback;
         return this;
-    }
-
+    };
+    
     this.start = function(id, lobby) {
         var me = this;
 
@@ -82,6 +89,9 @@ function Game(session, config, node, cache) {
     };
 
     this.move = function(choise) {
+        if (!this.active)
+            return;
+        
         var me = this;
         $.get(this.config.apiurl + this.session.id + "/game/" + this.id + "/move/" + choise);
     };
@@ -104,13 +114,13 @@ function Game(session, config, node, cache) {
         var xml = $(this.data).find("card").append(this.definition).toXml();
         console.log(xml);
         var style = this.cache.card;
-        $(this.node).xslt(xml, style);
-    }
+        $(this.node).xslt(xml, style, {"active" : (this.active ? "active" : ""), "name" : ""});
+    };
 
     this._destroy = function() {
 
         this.clearCookie();
-    }
+    };
 
     this.updateCookie = function(obj) {
           if (obj) {
