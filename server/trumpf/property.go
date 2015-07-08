@@ -18,7 +18,7 @@ type PropertyWrapper struct {
 }
 
 func (this *PropertyDef) IsBiggerBetter() bool {
-	return this.Type == "bigger"
+	return this.Type == "big"
 }
 
 type Property struct {
