@@ -155,6 +155,9 @@ func (this *session) MakeMove(playerID string, property int) bool {
 		currentValue = math.Inf(-1)
 	}
 	for i, p := range this.Players {
+		if p.Lost() {
+			continue
+		}
 		card, err := p.Deck.GetCurrent()
 		if err != nil {
 			this.SendEvent(events.New("internal_error", "system", nil))
@@ -169,8 +172,11 @@ func (this *session) MakeMove(playerID string, property int) bool {
 			tie = false
 		}
 	}
+
+	this.SendEvent(events.New("game_round_win", "system", this.Players[currentPlayer].Player.ID))
+
 	if tie {
-		events.New("tie", playerID, nil)
+		this.SendEvent(events.New("tie", playerID, nil))
 		// ToDo
 	} else {
 		for _, p := range this.Players {
