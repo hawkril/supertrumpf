@@ -132,7 +132,7 @@ func (this *Lobby) Leave(player *players.Player) {
 	// If the player is the owner, close the lobby
 	if this.Owner.ID == player.ID {
 		this.SendEvent(events.New("lobby_closed", player.ID, nil))
-		removeLobby(this.ID)
+		RemoveLobby(this.ID)
 	}
 }
 
@@ -162,7 +162,7 @@ func addLobby(lobby *Lobby) bool {
 	return true
 }
 
-func removeLobby(lobbyID string) {
+func RemoveLobby(lobbyID string) {
 	m.Lock()
 	delete(l, lobbyID)
 	m.Unlock()
