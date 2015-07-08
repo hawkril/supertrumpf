@@ -69,6 +69,7 @@ func StartGame(lobby *lobbies.Lobby) (*session, error) {
 	s := &session{
 		ID:      utils.GenerateID(32),
 		Players: ps,
+		Set:     set,
 	}
 	s.ShufflePlayers()
 
