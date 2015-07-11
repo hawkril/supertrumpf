@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-targetNamespace="http://46.4.83.144:8888"
-xmlns="http://46.4.83.144:8888/sets"
-elementFormDefault="qualified">
-<xs:element name="sets">
-<xs:element name="set" minOccurs="1" maxOccurs="unbounded">
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element name="title" type="xs:string"/>
-      <xs:element name="card_count" type="xs:integer"/>
-      <xs:element name="max_players" type="xs:integer"/>
-    </xs:sequence>
-  </xs:complexType>
-</xs:element>
-</xs:element>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://46.4.83.144:8888" xmlns="http://46.4.83.144:8888/sets" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="sets">
+		<xs:complexType>
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="set">
+			<xs:attribute name="name" type="xs:string"/>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="title" type="xs:string"/>
+						<xs:element name="card_count" type="xs:integer"/>
+						<xs:element name="max_players" type="xs:integer"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:complexType>
+	</xs:element>
 </xs:schema>
