@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.w3schools.com"
+	xmlns="http://46.4.83.144:8888/sets"
+	elementFormDefault="qualified">
+	<xs:element name="definition">
+		<xs:complexType>
+				<xs:sequence>
+					<xs:element name="no_values" type="xs:integer"/>
+					<xs:element name="values">
+						<xs:element name="value" minOccurs="1" maxOccurs="unbounded">
+							<xs:complexType>
+							<xs:sequence>
+								<xs:element name="tag" type="xs:string"/>
+								<xs:element name="type" type="xs:string"/>
+								<xs:element name="name" type="xs:string"/>
+								<xs:element name="suffix" type="xs:string"/>
+							</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:element>
+				</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cards">
+		<xs:element name="card" minOccurs="1" maxOccurs="unbounded">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="no" type="xs:integer"/>
+					<xs:element name="titel" type="xs:string"/>
+					<xs:element name="card_pic" type="xs:string"/>
+					<xs:element name="value" type="decimal">
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+	</xs:element>
+</xs:schema>
