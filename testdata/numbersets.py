@@ -4,11 +4,14 @@
 import xml.etree.cElementTree as ET
 import xml.dom.minidom as minidom
 import sys
+import rdflib
+import codecs
+import os.path
 
-setname = sys.argv[1] 
-filename = setname + '.xml'
-settitel = sys.argv[2] 
-card_no = int(sys.argv[3]) 
+setname = 'numbers'
+filename = 'numbers.xml'
+settitel = 'Zahlen' 
+card_no = 40 
 
 #helper functions 
 def factors(n):
@@ -76,14 +79,35 @@ xmlstr = minidom.parseString(ET.tostring(root)).toprettyxml(indent="   ")
 with open(filename, "w") as f:
 	f.write(xmlstr.encode('utf-8'))
 
-setdoc = ET.parse('sets.xml')
-sets = setdoc.getroot()
-set = ET.SubElement(sets,"set", name = setname)
-ET.SubElement(set,"title").text = settitel
-ET.SubElement(set,"card_count").text = str(card_no)
-ET.SubElement(set,"max_players").text = str(card_no // 8)
+if not os.path.isfile('sets.xml'):
+    setsdoc = minidom.Document()
+    sets = setsdoc.createElement('sets')
+    sets.setAttribute('xmlns', '46.4.83.144')
+    sets.setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
+    sets.setAttribute('xsi:schemaLocation', 'sets.xsd')
+    setsdoc.appendChild(sets)
+else:
+    setsdoc = minidom.parse('sets.xml')
+    sets = setsdoc.getElementsByTagName("sets")[0]
 
-setdoc.write('sets.xml', xml_declaration=True)
+set = setsdoc.createElement('set')
+set.setAttribute('name', setname)
+sets.appendChild(set)
+
+stitle = setsdoc.createElement('title')
+set.appendChild(stitle)
+stitle.appendChild(setsdoc.createTextNode(settitel))
+scc = setsdoc.createElement('card_count')
+set.appendChild(scc)
+scc.appendChild(setsdoc.createTextNode(str(card_no)))
+splay = setsdoc.createElement('max_players')
+set.appendChild(splay)  
+splay.appendChild(setsdoc.createTextNode(str(card_no // 8)))
+
+setsdoc.writexml( open('sets.xml', 'w'),
+           indent="  ",
+           addindent="  ",
+           newl='\n')
 
 
 

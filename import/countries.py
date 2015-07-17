@@ -68,6 +68,10 @@ def createset():
 	doc = minidom.Document()
 	global cardset
 	cardset = doc.createElement('cardset')
+	cardset.setAttribute('xmlns', '46.4.83.144')
+	cardset.setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
+	cardset.setAttribute('xsi:schemaLocation', 'cardset.xsd')
+
 	doc.appendChild(cardset)
 	definition = doc.createElement('definition')
 	cardset.appendChild(definition)
@@ -127,7 +131,10 @@ def addcard(elem):
 def	addset():
 	if not os.path.isfile('sets.xml'):
 		setsdoc = minidom.Document()
-		sets = doc.createElement('sets')
+		sets = setsdoc.createElement('sets')
+		sets.setAttribute('xmlns', '46.4.83.144')
+		sets.setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
+		sets.setAttribute('xsi:schemaLocation', 'sets.xsd')
 		setsdoc.appendChild(sets)
 	else:
 		setsdoc = minidom.parse('sets.xml')
