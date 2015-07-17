@@ -22,7 +22,7 @@ func QuerySet(id string) (*Set, error) {
 	// ToDo: Write an adequate escape
 	id = strings.Replace(id, `"`, ``, -1)
 
-	rows, err := database.Query(`for $x in doc("testdata1/sets.xml")/sets/set where $x/@name="` + id + `" return $x`)
+	rows, err := database.Query(`declare default element namespace "46.4.83.144";for $x in doc("testdata1/sets.xml")/sets/set where $x/@name="` + id + `" return $x`)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +34,7 @@ func QuerySet(id string) (*Set, error) {
 		return nil, err
 	}
 
-	rows, err = database.Query(`for $x in doc("testdata1/` + id + `.xml")/cardset/definition/values return $x`)
+	rows, err = database.Query(`declare default element namespace "46.4.83.144";for $x in doc("testdata1/` + id + `.xml")/cardset/definition/values return $x`)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func QuerySet(id string) (*Set, error) {
 }
 
 func QueryAllSets() ([]*Set, error) {
-	rows, err := database.Query(`for $x in doc("testdata1/sets.xml")/sets/set return $x`)
+	rows, err := database.Query(`declare default element namespace "46.4.83.144";for $x in doc("testdata1/sets.xml")/sets/set return $x`)
 	if err != nil {
 		return nil, err
 	}

@@ -27,7 +27,7 @@ type Value struct {
 }
 
 func QueryCard(setID string, index int) (*Card, error) {
-	q, err := database.Query(fmt.Sprintf(`for $x in doc("testdata1/%s.xml")/cardset/cards/card where $x/no=%d return $x`, setID, index+1))
+	q, err := database.Query(fmt.Sprintf(`declare default element namespace "46.4.83.144";for $x in doc("testdata1/%s.xml")/cardset/cards/card where $x/no=%d return $x`, setID, index+1))
 	if err != nil {
 		return nil, err
 	}
