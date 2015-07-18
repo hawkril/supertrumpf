@@ -37,6 +37,9 @@ def sum_bin(n):
 #create document root
 
 root = ET.Element('cardset')
+root.attrib["xmlns"] = "46.4.83.144"
+root.attrib["xmlns:xsi"] = "http://www.w3.org/2001/XMLSchema-instance"
+root.attrib["xsi:schemaLocation"] = "cardset.xsd"
 
 #create definition section
 definition = ET.SubElement(root, "definition")

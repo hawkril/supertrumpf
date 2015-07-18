@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<cardset>
+<cardset xmlns="46.4.83.144" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="cardset.xsd">
    <definition>
       <no_values>3</no_values>
       <values>

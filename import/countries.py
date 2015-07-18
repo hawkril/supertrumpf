@@ -29,7 +29,7 @@ settitle = 'Länder'
 
 # cardinfo
 no_values = 4
-valueinfo = ['pop','big','Einwohnerzahl','','area','big','Fläche','km²','water','small','Wassrfläche','%','gdp','big','Bruttoinlandsprodukt','$ pro Kopf']
+valueinfo = ['pop','big','Einwohnerzahl','','area','big','Fläche','km²','water','small','Wasserfläche','%','gdp','big','Bruttoinlandsprodukt','$ pro Kopf']
 
 
 ###############################################################################
