@@ -1,0 +1,15 @@
+gibt alle kartensets aus
+
+xquery for $x in doc("testdata1/sets.xml")/sets/set return $x
+
+gibt alle kartensets aus die bei denen  oder mehr leute spielen koennen
+
+xquery for $x in doc("testdata1/sets.xml")/sets/set where $x/max_players>=2 return $x
+
+
+gibt die definition des kartensets numbers zurueck.
+xquery for $x in doc("testdata1/numbers.xml")/cardset/definition return $x
+
+gibt karte nummer 7 aus dem set mit dem namen numbers zurueckzurueck
+
+xquery for $x in doc("testdata1/numbers.xml")/cardset/cards/card where %x/no=7 return $x
