@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<card>
+    <no>1</no>
+    <titel>Kanada</titel>
+    <value id="pop">35675834</value>
+    <value id="area">9984670</value>
+    <value id="water">8.92</value>
+    <value id="gdp">50577.0</value>
+    <card_pic>http://en.wikipedia.org/wiki/Special:FilePath/Flag_of_Canada.svg</card_pic>
+    <set_id>countries</set_id>
+    <set name="countries">
+      <title>Länder</title>
+      <card_count>72</card_count>
+      <max_players>9</max_players>
+      <properties>
+        <value>
+          <tag>pop</tag>
+          <name>Einwohnerzahl</name>
+          <suffix/>
+          <type>big</type>
+        </value>
+        <value>
+          <tag>area</tag>
+          <name>Fläche</name>
+          <suffix>km²</suffix>
+          <type>big</type>
+        </value>
+        <value>
+          <tag>water</tag>
+          <name>Wassrfläche</name>
+          <suffix>%</suffix>
+          <type>small</type>
+        </value>
+        <value>
+          <tag>gdp</tag>
+          <name>Bruttoinlandsprodukt</name>
+          <suffix>$ pro Kopf</suffix>
+          <type>big</type>
+        </value>
+      </properties>
+    </set>
+</card>
