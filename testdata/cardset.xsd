@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://46.4.83.144:8888" xmlns="http://46.4.83.144:8888" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="definition">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="no_values" type="xs:integer"/>
+				<xs:element name="values">
+					<xs:element maxOccurs="unbounded" minOccurs="1" name="value">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="tag" type="xs:string"/>
+								<xs:element name="type" type="xs:string"/>
+								<xs:element name="name" type="xs:string"/>
+								<xs:element name="suffix" type="xs:string"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cards">
+		<xs:element maxOccurs="unbounded" minOccurs="1" name="card">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="no" type="xs:integer"/>
+					<xs:element name="titel" type="xs:string"/>
+					<xs:element name="card_pic" type="xs:string"/>
+					<xs:complexType>
+						<xs:element maxOccurs="unbounded" minOccurs="1" name="value" type="xs:decimal"/>
+						<xs:attribute name="id" type="xs:string"/>
+					</xs:complexType>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+	</xs:element>
+</xs:schema>

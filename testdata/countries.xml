@@ -1,0 +1,690 @@
+<?xml version="1.0" ?>
+  <cardset xmlns="46.4.83.144" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="cardset.xsd">
+    <definition>
+      <values>
+        <value>
+          <tag>pop</tag>
+          <type>big</type>
+          <name>Einwohnerzahl</name>
+          <suffix></suffix>
+        </value>
+        <value>
+          <tag>area</tag>
+          <type>big</type>
+          <name>Fläche</name>
+          <suffix>km²</suffix>
+        </value>
+        <value>
+          <tag>water</tag>
+          <type>small</type>
+          <name>Wassrfläche</name>
+          <suffix>%</suffix>
+        </value>
+        <value>
+          <tag>gdp</tag>
+          <type>big</type>
+          <name>Bruttoinlandsprodukt</name>
+          <suffix>$ pro Kopf</suffix>
+        </value>
+      </values>
+    </definition>
+    <cards>
+      <card>
+        <no>1</no>
+        <titel>Kanada</titel>
+        <card_pic>http://en.wikipedia.org/wiki/Special:FilePath/Flag_of_Canada.svg</card_pic>
+        <value id="pop">35675834</value>
+        <value id="area">9984670</value>
+        <value id="water">8.92</value>
+        <value id="gdp">50577.0</value>
+      </card>
+      <card>
+        <no>2</no>
+        <titel>Japan</titel>
+        <card_pic>http://en.wikipedia.org/wiki/Special:FilePath/Flag_of_Japan.svg</card_pic>
+        <value id="pop">126434964</value>
+        <value id="area">377944</value>
+        <value id="water">0.8</value>
+        <value id="gdp">37540.0</value>
+      </card>
+      <card>
+        <no>3</no>
+        <titel>Irland</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Ireland.svg</card_pic>
+        <value id="pop">4609600</value>
+        <value id="area">70273</value>
+        <value id="water">2.0</value>
+        <value id="gdp">52256.0</value>
+      </card>
+      <card>
+        <no>4</no>
+        <titel>Ungarn</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Hungary.svg</card_pic>
+        <value id="pop">9877365</value>
+        <value id="area">93030</value>
+        <value id="water">0.74</value>
+        <value id="gdp">14703.0</value>
+      </card>
+      <card>
+        <no>5</no>
+        <titel>Spanien</titel>
+        <card_pic>http://en.wikipedia.org/wiki/Special:FilePath/Flag_of_Spain.svg</card_pic>
+        <value id="pop">46704314</value>
+        <value id="area">504645</value>
+        <value id="water">1.04</value>
+        <value id="gdp">30113.0</value>
+      </card>
+      <card>
+        <no>6</no>
+        <titel>Vereinigte Staaten</titel>
+        <card_pic>http://en.wikipedia.org/wiki/Special:FilePath/Flag_of_the_United_States.svg</card_pic>
+        <value id="pop">320206000</value>
+        <value id="area">9857306</value>
+        <value id="water">2.23</value>
+        <value id="gdp">53042.0</value>
+      </card>
+      <card>
+        <no>7</no>
+        <titel>Finnland</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Finland.svg</card_pic>
+        <value id="pop">5474094</value>
+        <value id="area">338424</value>
+        <value id="water">10.0</value>
+        <value id="gdp">50450.0</value>
+      </card>
+      <card>
+        <no>8</no>
+        <titel>Schweden</titel>
+        <card_pic>http://en.wikipedia.org/wiki/Special:FilePath/Flag_of_Sweden.svg</card_pic>
+        <value id="pop">9716962</value>
+        <value id="area">450295</value>
+        <value id="water">8.7</value>
+        <value id="gdp">58472.0</value>
+      </card>
+      <card>
+        <no>9</no>
+        <titel>Polen</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Poland_(normative).svg</card_pic>
+        <value id="pop">38483957</value>
+        <value id="area">312679</value>
+        <value id="water">3.07</value>
+        <value id="gdp">15406.0</value>
+      </card>
+      <card>
+        <no>10</no>
+        <titel>Litauen</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Lithuania.svg</card_pic>
+        <value id="pop">2921920</value>
+        <value id="area">65300</value>
+        <value id="water">1.35</value>
+        <value id="gdp">17334.0</value>
+      </card>
+      <card>
+        <no>11</no>
+        <titel>Italien</titel>
+        <card_pic>http://en.wikipedia.org/wiki/Special:FilePath/Flag_of_Italy.svg</card_pic>
+        <value id="pop">60782668</value>
+        <value id="area">301338</value>
+        <value id="water">2.4</value>
+        <value id="gdp">35512.0</value>
+      </card>
+      <card>
+        <no>12</no>
+        <titel>Schweiz</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Switzerland_(Pantone).svg</card_pic>
+        <value id="pop">8183800</value>
+        <value id="area">41285</value>
+        <value id="water">4.2</value>
+        <value id="gdp">84344.0</value>
+      </card>
+      <card>
+        <no>13</no>
+        <titel>Österreich</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Austria.svg</card_pic>
+        <value id="pop">8572895</value>
+        <value id="area">83879</value>
+        <value id="water">1.7</value>
+        <value id="gdp">52216.0</value>
+      </card>
+      <card>
+        <no>14</no>
+        <titel>Portugal</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Portugal.svg</card_pic>
+        <value id="pop">10427301</value>
+        <value id="area">92212</value>
+        <value id="water">0.5</value>
+        <value id="gdp">22089.0</value>
+      </card>
+      <card>
+        <no>15</no>
+        <titel>Uruguay</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Uruguay.svg</card_pic>
+        <value id="pop">3324460</value>
+        <value id="area">176215</value>
+        <value id="water">1.5</value>
+        <value id="gdp">17121.0</value>
+      </card>
+      <card>
+        <no>16</no>
+        <titel>Ägypten</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Egypt.svg</card_pic>
+        <value id="pop">87900000</value>
+        <value id="area">1002450</value>
+        <value id="water">0.632</value>
+        <value id="gdp">3723.0</value>
+      </card>
+      <card>
+        <no>17</no>
+        <titel>Mexiko</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Mexico.svg</card_pic>
+        <value id="pop">118395054</value>
+        <value id="area">1972550</value>
+        <value id="water">2.5</value>
+        <value id="gdp">11320.91</value>
+      </card>
+      <card>
+        <no>18</no>
+        <titel>Kenia</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Kenya.svg</card_pic>
+        <value id="pop">45010056</value>
+        <value id="area">581309</value>
+        <value id="water">2.3</value>
+        <value id="gdp">1269.0</value>
+      </card>
+      <card>
+        <no>19</no>
+        <titel>Äthiopien</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Ethiopia.svg</card_pic>
+        <value id="pop">87952991</value>
+        <value id="area">1104300</value>
+        <value id="water">0.7</value>
+        <value id="gdp">570.0</value>
+      </card>
+      <card>
+        <no>20</no>
+        <titel>Ghana</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Ghana.svg</card_pic>
+        <value id="pop">27000000</value>
+        <value id="area">238535</value>
+        <value id="water">4.61</value>
+        <value id="gdp">2600.0</value>
+      </card>
+      <card>
+        <no>21</no>
+        <titel>Vereinigtes Königreich</titel>
+        <card_pic>http://en.wikipedia.org/wiki/Special:FilePath/Flag_of_the_United_Kingdom.svg</card_pic>
+        <value id="pop">64100000</value>
+        <value id="area">243610</value>
+        <value id="water">1.34</value>
+        <value id="gdp">44141.0</value>
+      </card>
+      <card>
+        <no>22</no>
+        <titel>Volksrepublik China</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_the_People's_Republic_of_China.svg</card_pic>
+        <value id="pop">1357380000</value>
+        <value id="area">9596961</value>
+        <value id="water">0.28</value>
+        <value id="gdp">7548.0</value>
+      </card>
+      <card>
+        <no>23</no>
+        <titel>Brasilien</titel>
+        <card_pic>http://en.wikipedia.org/wiki/Special:FilePath/Flag_of_Brazil.svg</card_pic>
+        <value id="pop">202768562</value>
+        <value id="area">8515767</value>
+        <value id="water">0.65</value>
+        <value id="gdp">11067.0</value>
+      </card>
+      <card>
+        <no>24</no>
+        <titel>Russland</titel>
+        <card_pic>http://en.wikipedia.org/wiki/Special:FilePath/Flag_of_Russia.svg</card_pic>
+        <value id="pop">143975923</value>
+        <value id="area">17098242</value>
+        <value id="water">13.0</value>
+        <value id="gdp">14317.0</value>
+      </card>
+      <card>
+        <no>25</no>
+        <titel>Weißrussland</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Belarus.svg</card_pic>
+        <value id="pop">9475100</value>
+        <value id="area">207595</value>
+        <value id="water">1.4</value>
+        <value id="gdp">8711.0</value>
+      </card>
+      <card>
+        <no>26</no>
+        <titel>Estland</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Estonia.svg</card_pic>
+        <value id="pop">1315819</value>
+        <value id="area">45227</value>
+        <value id="water">4.45</value>
+        <value id="gdp">20571.0</value>
+      </card>
+      <card>
+        <no>27</no>
+        <titel>Lettland</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Latvia.svg</card_pic>
+        <value id="pop">1990300</value>
+        <value id="area">64589</value>
+        <value id="water">1.57</value>
+        <value id="gdp">16836.0</value>
+      </card>
+      <card>
+        <no>28</no>
+        <titel>Ukraine</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Ukraine.svg</card_pic>
+        <value id="pop">44291413</value>
+        <value id="area">603500</value>
+        <value id="water">7.0</value>
+        <value id="gdp">2979.0</value>
+      </card>
+      <card>
+        <no>29</no>
+        <titel>Tschechien</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_the_Czech_Republic.svg</card_pic>
+        <value id="pop">10513209</value>
+        <value id="area">78866</value>
+        <value id="water">2.0</value>
+        <value id="gdp">19796.0</value>
+      </card>
+      <card>
+        <no>30</no>
+        <titel>Moldawien</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Location_Moldova_Europe.png</card_pic>
+        <value id="pop">2913281</value>
+        <value id="area">33846</value>
+        <value id="water">1.4</value>
+        <value id="gdp">2456.0</value>
+      </card>
+      <card>
+        <no>31</no>
+        <titel>Rumänien</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Romania.svg</card_pic>
+        <value id="pop">19942642</value>
+        <value id="area">238391</value>
+        <value id="water">3.0</value>
+        <value id="gdp">9607.0</value>
+      </card>
+      <card>
+        <no>32</no>
+        <titel>Mazedonien</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Macedonia.svg</card_pic>
+        <value id="pop">2058539</value>
+        <value id="area">25713</value>
+        <value id="water">1.9</value>
+        <value id="gdp">4935.0</value>
+      </card>
+      <card>
+        <no>33</no>
+        <titel>Albanien</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Albania.svg</card_pic>
+        <value id="pop">3020209</value>
+        <value id="area">28748</value>
+        <value id="water">4.7</value>
+        <value id="gdp">5261.0</value>
+      </card>
+      <card>
+        <no>34</no>
+        <titel>Aserbaidschan</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Azerbaijan.svg</card_pic>
+        <value id="pop">9494600</value>
+        <value id="area">86600</value>
+        <value id="water">1.6</value>
+        <value id="gdp">7900.0</value>
+      </card>
+      <card>
+        <no>35</no>
+        <titel>Andorra</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Andorra.svg</card_pic>
+        <value id="pop">85082</value>
+        <value id="area">467.63</value>
+        <value id="water">0.26</value>
+        <value id="gdp">53383.0</value>
+      </card>
+      <card>
+        <no>36</no>
+        <titel>Republik Zypern</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Cyprus.svg</card_pic>
+        <value id="pop">1117000</value>
+        <value id="area">9251</value>
+        <value id="water">9.0</value>
+        <value id="gdp">26389.0</value>
+      </card>
+      <card>
+        <no>37</no>
+        <titel>Kasachstan</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Kazakhstan.svg</card_pic>
+        <value id="pop">17948816</value>
+        <value id="area">2724900</value>
+        <value id="water">1.7</value>
+        <value id="gdp">13509.0</value>
+      </card>
+      <card>
+        <no>38</no>
+        <titel>Chile</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Chile.svg</card_pic>
+        <value id="pop">17819054</value>
+        <value id="area">756096.0</value>
+        <value id="water">1.07</value>
+        <value id="gdp">14911</value>
+      </card>
+      <card>
+        <no>39</no>
+        <titel>Liechtenstein</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Liechtenstein.svg</card_pic>
+        <value id="pop">37132</value>
+        <value id="area">160</value>
+        <value id="water">2.7</value>
+        <value id="gdp">143151.0</value>
+      </card>
+      <card>
+        <no>40</no>
+        <titel>Nordkorea</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_North_Korea.svg</card_pic>
+        <value id="pop">24895000</value>
+        <value id="area">120540</value>
+        <value id="water">4.87</value>
+        <value id="gdp">621.0</value>
+      </card>
+      <card>
+        <no>41</no>
+        <titel>Kambodscha</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Cambodia.svg</card_pic>
+        <value id="pop">15205539</value>
+        <value id="area">181035</value>
+        <value id="water">2.5</value>
+        <value id="gdp">1108.0</value>
+      </card>
+      <card>
+        <no>42</no>
+        <titel>Tschad</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Chad.svg</card_pic>
+        <value id="pop">10329208</value>
+        <value id="area">1284000</value>
+        <value id="water">1.9</value>
+        <value id="gdp">1417.0</value>
+      </card>
+      <card>
+        <no>43</no>
+        <titel>Mongolei</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Mongolia.svg</card_pic>
+        <value id="pop">3000000</value>
+        <value id="area">1.56412e+06</value>
+        <value id="water">0.43</value>
+        <value id="gdp">3996.0</value>
+      </card>
+      <card>
+        <no>44</no>
+        <titel>Ecuador</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Ecuador.svg</card_pic>
+        <value id="pop">15223680</value>
+        <value id="area">283560</value>
+        <value id="water">5.0</value>
+        <value id="gdp">5310.0</value>
+      </card>
+      <card>
+        <no>45</no>
+        <titel>Dominica</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Dominica.svg</card_pic>
+        <value id="pop">72660</value>
+        <value id="area">750</value>
+        <value id="water">1.6</value>
+        <value id="gdp">7022.0</value>
+      </card>
+      <card>
+        <no>46</no>
+        <titel>Haiti</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Haiti.svg</card_pic>
+        <value id="pop">9996731</value>
+        <value id="area">27750</value>
+        <value id="water">0.7</value>
+        <value id="gdp">852.0</value>
+      </card>
+      <card>
+        <no>47</no>
+        <titel>Iran</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Iran.svg</card_pic>
+        <value id="pop">77176930</value>
+        <value id="area">1648195</value>
+        <value id="water">0.7</value>
+        <value id="gdp">5165.0</value>
+      </card>
+      <card>
+        <no>48</no>
+        <titel>Irak</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Iraq.svg</card_pic>
+        <value id="pop">36004552</value>
+        <value id="area">437072</value>
+        <value id="water">1.1</value>
+        <value id="gdp">4785.0</value>
+      </card>
+      <card>
+        <no>49</no>
+        <titel>Israel</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Israel.svg</card_pic>
+        <value id="pop">8238300</value>
+        <value id="area">2077022072</value>
+        <value id="water">2.12</value>
+        <value id="gdp">38004.0</value>
+      </card>
+      <card>
+        <no>50</no>
+        <titel>Jordanien</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Jordan.svg</card_pic>
+        <value id="pop">6655000</value>
+        <value id="area">89342</value>
+        <value id="water">0.8</value>
+        <value id="gdp">5122.0</value>
+      </card>
+      <card>
+        <no>51</no>
+        <titel>Kirgisistan</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Kyrgyzstan.svg</card_pic>
+        <value id="pop">5776500</value>
+        <value id="area">199951</value>
+        <value id="water">3.6</value>
+        <value id="gdp">1070.0</value>
+      </card>
+      <card>
+        <no>52</no>
+        <titel>Laos</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Laos.svg</card_pic>
+        <value id="pop">6803699</value>
+        <value id="area">236800</value>
+        <value id="water">2.0</value>
+        <value id="gdp">US$1,646</value>
+      </card>
+      <card>
+        <no>53</no>
+        <titel>Libanon</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Lebanon.svg</card_pic>
+        <value id="pop">4965914</value>
+        <value id="area">10452</value>
+        <value id="water">1.8</value>
+        <value id="gdp">11070.0</value>
+      </card>
+      <card>
+        <no>54</no>
+        <titel>Syrien</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Syria.svg</card_pic>
+        <value id="pop">17951639</value>
+        <value id="area">185180</value>
+        <value id="water">1.1</value>
+        <value id="gdp">2802.0</value>
+      </card>
+      <card>
+        <no>55</no>
+        <titel>Tadschikistan</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Tajikistan.svg</card_pic>
+        <value id="pop">8208000</value>
+        <value id="area">143100</value>
+        <value id="water">1.8</value>
+        <value id="gdp">1041.0</value>
+      </card>
+      <card>
+        <no>56</no>
+        <titel>Südkorea</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_South_Korea.svg</card_pic>
+        <value id="pop">51302044</value>
+        <value id="area">100210</value>
+        <value id="water">0.3</value>
+        <value id="gdp">28739.0</value>
+      </card>
+      <card>
+        <no>57</no>
+        <titel>Bangladesch</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Bangladesh.svg</card_pic>
+        <value id="pop">156594962</value>
+        <value id="area">147570</value>
+        <value id="water">6.4</value>
+        <value id="gdp">1033.0</value>
+      </card>
+      <card>
+        <no>58</no>
+        <titel>Bhutan</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Bhutan.svg</card_pic>
+        <value id="pop">742737</value>
+        <value id="area">38394</value>
+        <value id="water">1.1</value>
+        <value id="gdp">2121.0</value>
+      </card>
+      <card>
+        <no>59</no>
+        <titel>Brunei</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Brunei.svg</card_pic>
+        <value id="pop">415717</value>
+        <value id="area">5765</value>
+        <value id="water">8.6</value>
+        <value id="gdp">39355.0</value>
+      </card>
+      <card>
+        <no>60</no>
+        <titel>Zentralafrikanische Republik</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_the_Central_African_Republic.svg</card_pic>
+        <value id="pop">4709000</value>
+        <value id="area">622984</value>
+        <value id="water">0.0</value>
+        <value id="gdp">358.0</value>
+      </card>
+      <card>
+        <no>61</no>
+        <titel>Benin</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Benin.svg</card_pic>
+        <value id="pop">10323000</value>
+        <value id="area">114763</value>
+        <value id="water">0.02</value>
+        <value id="gdp">794.0</value>
+      </card>
+      <card>
+        <no>62</no>
+        <titel>Botswana</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Botswana.svg</card_pic>
+        <value id="pop">2155784</value>
+        <value id="area">581730</value>
+        <value id="water">2.6</value>
+        <value id="gdp">7704.0</value>
+      </card>
+      <card>
+        <no>63</no>
+        <titel>Burkina Faso</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Burkina_Faso.svg</card_pic>
+        <value id="pop">17322796</value>
+        <value id="area">274200</value>
+        <value id="water">0.146</value>
+        <value id="gdp">790.0</value>
+      </card>
+      <card>
+        <no>64</no>
+        <titel>Burundi</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Burundi.svg</card_pic>
+        <value id="pop">10395931</value>
+        <value id="area">27834</value>
+        <value id="water">7.8</value>
+        <value id="gdp">330.124</value>
+      </card>
+      <card>
+        <no>65</no>
+        <titel>Republik Kongo</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_the_Republic_of_the_Congo.svg</card_pic>
+        <value id="pop">4662446</value>
+        <value id="area">342000</value>
+        <value id="water">3.3</value>
+        <value id="gdp">3400.0</value>
+      </card>
+      <card>
+        <no>66</no>
+        <titel>Dschibuti</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Djibouti.svg</card_pic>
+        <value id="pop">810179</value>
+        <value id="area">23200</value>
+        <value id="water">0.09</value>
+        <value id="gdp">1685.0</value>
+      </card>
+      <card>
+        <no>67</no>
+        <titel>Gabun</titel>
+        <card_pic>http://en.wikipedia.org/wiki/Special:FilePath/Flag_of_Gabon.svg</card_pic>
+        <value id="pop">1475000</value>
+        <value id="area">267667</value>
+        <value id="water">3.76</value>
+        <value id="gdp">13032.0</value>
+      </card>
+      <card>
+        <no>68</no>
+        <titel>Guinea-Bissau</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Guinea-Bissau.svg</card_pic>
+        <value id="pop">1647000</value>
+        <value id="area">36125</value>
+        <value id="water">22.4</value>
+        <value id="gdp">551.0</value>
+      </card>
+      <card>
+        <no>69</no>
+        <titel>Elfenbeinküste</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Côte_d'Ivoire.svg</card_pic>
+        <value id="pop">23919000</value>
+        <value id="area">322463</value>
+        <value id="water">1.4</value>
+        <value id="gdp">1302.0</value>
+      </card>
+      <card>
+        <no>70</no>
+        <titel>Kamerun</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Cameroon.svg</card_pic>
+        <value id="pop">22534532</value>
+        <value id="area">475442</value>
+        <value id="water">0.57</value>
+        <value id="gdp">1369.0</value>
+      </card>
+      <card>
+        <no>71</no>
+        <titel>Malawi</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Malawi.svg</card_pic>
+        <value id="pop">16407000</value>
+        <value id="area">118484</value>
+        <value id="water">20.6</value>
+        <value id="gdp">253.0</value>
+      </card>
+      <card>
+        <no>72</no>
+        <titel>Mauritius</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Mauritius.svg</card_pic>
+        <value id="pop">1261208</value>
+        <value id="area">2040</value>
+        <value id="water">0.07</value>
+        <value id="gdp">US$10,294</value>
+      </card>
+      <card>
+        <no>73</no>
+        <titel>Nigeria</titel>
+        <card_pic>http://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Nigeria.svg</card_pic>
+        <value id="pop">174507539</value>
+        <value id="area">923768</value>
+        <value id="water">1.4</value>
+        <value id="gdp">3416.0</value>
+      </card>
+    </cards>
+  </cardset>

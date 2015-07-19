@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cardset>
+	
+	<definition> 
+		<no_values></no_values>
+		<values>
+			<value>
+				<tag></tag>
+				<type></type>
+				<name></name>
+				<suffix></suffix>
+			</value>
+		</values>
+	
+	</definition>
+	
+	<cards>
+		<card>
+			<no></no>
+			<titel></title>
+			<card_pic></card_pic>
+			<!--
+			<value id="1"></value>
+			<value id="2"></value>
+			<value id="3"></value>
+			-->
+		</card>
+	</cards>
+
+</cardset>
