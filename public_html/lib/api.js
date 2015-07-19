@@ -31,6 +31,9 @@ function Api(config) {
                     <input type='text' class='form-control' id='username' placeholder='Spielername'>\
                     <button type='submit' class='btn btn-success'>LOS</button>\
                 </form>\
+                <div id='loginfooter'>\n\
+                    <a href='credits.html' target='_blank'>Credits</a>\n\
+                </div> \
             </div>";
         
         this.cache.staticlobbies = " \

@@ -25,13 +25,13 @@ function Lobby(session, config, node, cache) {
 
     var me = this;
     $(this.node).on("click", "#open_changenum", function() { 
-        this.disablerefresh = true;
+        me.disablerefresh = true;
         $(".overlay").fadeOut(200);
         $("#overlay_changenum").fadeIn(200); 
     });
 
     $(this.node).on("click", "#open_changename", function() { 
-        this.disablerefresh = true;
+        me.disablerefresh = true;
         $(".overlay").fadeOut(200);
         $("#overlay_changename").fadeIn(200); 
     });
@@ -58,7 +58,7 @@ function Lobby(session, config, node, cache) {
         if (!num)
             return;
 
-        this.disablerefresh = false;
+        me.disablerefresh = false;
         me.changeMaxPlayers(num); 
         $(".overlay").fadeOut(200);
     });
@@ -69,7 +69,7 @@ function Lobby(session, config, node, cache) {
         if (!name)
             return;
 
-        this.disablerefresh = false;
+        me.disablerefresh = false;
         me.changeName(name); 
         $(".overlay").fadeOut(200);
     });
@@ -100,12 +100,12 @@ function Lobby(session, config, node, cache) {
     this.entered = function(callback) {
         this.enteredCallback = callback;
         return this;
-    }
+    };
 
     this.full = function(callback) {
         this.fullCallback = callback;
         return this;
-    }
+    };
     
     this.create = function(name) {
         var me = this;

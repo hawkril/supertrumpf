@@ -1,5 +1,7 @@
 html {
     height: 100%;
+    margin: 0px;
+    padding: 0px;
 }
 
 body {
@@ -261,7 +263,6 @@ h1 {
 
 .cardimage {
     text-align: center;
-    height: 40%;
     margin: auto;
 }
 
@@ -377,4 +378,67 @@ h1 {
 
 .lobby main {
     padding: 10px;
+}
+
+body.credits {
+    width: 100%;
+    height: 90%;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+
+.credits .wrapper {
+    background: linear-gradient(rgba(255,255,255,0.95), rgba(221,221,221,0.95));
+    border: 1px solid rgb(133,133,133);
+    border-radius: 8px;
+    font-size: 25px;
+    color: gray;
+    padding: 40px 10px 10px 10px;
+    box-shadow: 0 0 20px rgba(81, 203, 238, 1);
+    max-width: 800px;
+    max-height: 90%;
+    overflow: auto;
+    margin: 2% auto;
+}
+
+.credits address {
+    /*background: linear-gradient(rgba(240,240,240,0.95), rgba(255,255,255,0.95));*/
+    background-color: rgba(240,240,240,0.95);
+    text-align: left;    
+    border: 1px solid lightgray;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+.vcard .given-name,
+.vcard .family-name {
+    font-weight: bold;
+}
+
+.vcard .note {
+    display: none;
+}
+
+.credits h3 {
+    text-align: left;
+    font-weight: bold;
+}
+
+.credits h2 {
+    font-size: 40px;
+}
+
+#loginfooter {
+    margin-top: 100px;
+    font-size: 15px;
+}
+
+#loginfooter a {  
+    color: gray;
+}
+
+#loginfooter a:hover {   
+    color: #337ab7;
 }

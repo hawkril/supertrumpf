@@ -5,23 +5,6 @@ $(document).ready(function() {
 	config 	= new Config("http://46.4.83.144:8888/api/", $("body"));	
     api 	= new Api(config);
     api.init();
-
-
-    // return to state in cookie
-//    switch (session.currentstate) {
-//        case "lobbies":
-//            if (session.sessionid) {
-//                showlobbies();
-//                return;
-//            }
-//            break;
-//        case "lobby":
-//            if (session.sessionid && session.lobbyid) {
-//                showlobby();
-//                return;
-//            }
-//            break;
-//    }
     
     api.showLogin();
     
