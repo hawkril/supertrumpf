@@ -28,9 +28,6 @@ const (
 )
 
 func main() {
-	// This should go away with the next Go version
-	runtime.GOMAXPROCS(runtime.NumCPU())
-
 	// Read the port from the parameters
 	port := ":80"
 	if len(os.Args) < 2 {
