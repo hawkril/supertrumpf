@@ -31,22 +31,22 @@ func NewPlayer(name string) *Player {
 	return p
 }
 
-func (this *Player) Seen() {
-	this.LastSeen = time.Now()
+func (p *Player) Seen() {
+	p.LastSeen = time.Now()
 }
 
-func (this *Player) GetChannel(name string) chan *events.Event {
-	if ch, ok := this.Chans[name]; ok {
+func (p *Player) GetChannel(name string) chan *events.Event {
+	if ch, ok := p.Chans[name]; ok {
 		return ch
 	}
 	ch := make(chan *events.Event, 8)
-	this.Chans[name] = ch
+	p.Chans[name] = ch
 	return ch
 }
 
-func (this *Player) RemoveChannel(name string) {
-	if ch, ok := this.Chans[name]; ok {
-		delete(this.Chans, name)
+func (p *Player) RemoveChannel(name string) {
+	if ch, ok := p.Chans[name]; ok {
+		delete(p.Chans, name)
 		close(ch)
 	}
 }
